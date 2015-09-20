@@ -37,6 +37,11 @@ target 'Braintree-Demo' do
   pod 'iOS-Slide-Menu'
 end
 
+target 'Braintree-OSX-Demo' do
+    platform :osx, '10.10'
+    pod 'Braintree/OSX', :path => '.'    
+end
+
 target 'Logic-Tests' do
   link_with 'Braintree-API-Specs',
             'Braintree-API-Integration-Specs',

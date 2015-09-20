@@ -25,6 +25,12 @@ Pod::Spec.new do |s|
   s.compiler_flags = "-Wall -Werror -Wextra"
 
   s.default_subspecs = %w[Drop-In API PayPal Venmo Coinbase UI Payments]
+  
+  s.subspec "OSX" do |s|
+    s.platform = :osx, "10.10"
+    s.source_files  = "Braintree/API/**/*.{h,m}"
+    s.public_header_files = "Braintree/API/@Public/*.h"    
+  end
 
   s.subspec "Apple-Pay" do |s|
     s.dependency "Braintree/Payments"
