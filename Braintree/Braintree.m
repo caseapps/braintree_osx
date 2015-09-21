@@ -4,12 +4,11 @@
 #import "BTClient+BTPayPal.h"
 #import "BTClient_Internal.h"
 #import "BTLogger_Internal.h"
-
+#ifndef TARGET_OS_MAC
 #import "BTPayPalButton.h"
 #import "BTPaymentProvider.h"
-
 #import "BTDropInViewController.h"
-
+#endif
 #import "BTAppSwitch.h"
 
 @interface Braintree ()
@@ -57,6 +56,7 @@
 }
 
 #pragma mark UI
+#ifndef TARGET_OS_MAC
 
 - (BTDropInViewController *)dropInViewControllerWithDelegate:(id<BTDropInViewControllerDelegate>)delegate {
     [self.client postAnalyticsEvent:@"custom.ios.dropin.init"
@@ -81,7 +81,7 @@
     button.delegate = delegate;
     return button;
 }
-
+#endif
 #pragma mark Custom
 
 - (void)tokenizeCard:(BTClientCardTokenizationRequest *)tokenizationRequest
@@ -149,6 +149,7 @@
 }
 #endif
 
+#ifndef TARGET_OS_MAC
 - (BTPaymentProvider *)paymentProviderWithDelegate:(id<BTPaymentMethodCreationDelegate>)delegate {
     BTPaymentProvider *paymentProvider = [[BTPaymentProvider alloc] initWithClient:self.client];
     paymentProvider.delegate = delegate;
@@ -157,9 +158,10 @@
 
     return paymentProvider;
 }
+#endif
 
 #pragma mark Deprecated
-
+#ifndef TARGET_OS_MAC
 - (BTPayPalButton *)payPalButtonWithDelegate:(id<BTPayPalButtonDelegate>)delegate {
     [self.client postAnalyticsEvent:@"custom.ios.paypal.init"
                             success:nil
@@ -183,7 +185,7 @@
 #pragma clang diagnostic pop
     return _payPalButton;
 }
-
+#endif
 #pragma mark Library
 
 + (NSString *)libraryVersion {

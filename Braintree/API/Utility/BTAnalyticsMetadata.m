@@ -6,7 +6,9 @@
 #import <sys/sysctl.h>
 #import <sys/utsname.h>
 
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
+#endif
 
 #ifdef __IPHONE_8_0
 #define kBTCLAuthorizationStatusAuthorized kCLAuthorizationStatusAuthorizedAlways
@@ -32,6 +34,7 @@
 #endif
     [self setObject:[m deviceManufacturer] forKey:@"deviceManufacturer" inDictionary:data];
     [self setObject:[m deviceModel] forKey:@"deviceModel" inDictionary:data];
+#ifndef TARGET_OS_MAC
     if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kBTCLAuthorizationStatusAuthorized) {
         [self setObject:@([m deviceLocationLatitude]) forKey:@"deviceLocationLatitude" inDictionary:data];
         [self setObject:@([m deviceLocationLongitude]) forKey:@"deviceLocationLongitude" inDictionary:data];
@@ -41,6 +44,7 @@
     [self setObject:[m iosBaseSDK] forKey:@"iosBaseSDK" inDictionary:data];
     [self setObject:[m iosDeploymentTarget] forKey:@"iosDeploymentTarget" inDictionary:data];
     [self setObject:[m iosIdentifierForVendor] forKey:@"iosIdentifierForVendor" inDictionary:data];
+#endif
     [self setObject:@([m iosIsCocoapods]) forKey:@"iosIsCocoapods" inDictionary:data];
     [self setObject:[m deviceAppGeneratedPersistentUuid] forKey:@"deviceAppGeneratedPersistentUuid" inDictionary:data];
     [self setObject:@([m isSimulator]) forKey:@"isSimulator" inDictionary:data];
@@ -63,7 +67,12 @@
 }
 
 - (NSString *)platformVersion {
+#ifdef TARGET_OS_MAC
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    return [NSString stringWithFormat: @"%ld.%ld.%ld", (long)version.majorVersion, version.minorVersion, version.patchVersion];
+#else
     return [[UIDevice currentDevice] systemVersion];
+#endif
 }
 
 - (NSString *)sdkVersion {
@@ -115,7 +124,7 @@
 - (CLLocationDegrees)deviceLocationLongitude {
     return [[[[CLLocationManager alloc] init] location] coordinate].longitude;
 }
-
+#ifndef TARGET_OS_MAC
 - (NSString *)iosIdentifierForVendor {
     return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 }
@@ -135,6 +144,7 @@
 - (NSString *)iosSystemName {
     return [[UIDevice currentDevice] systemName];
 }
+#endif
 
 - (BOOL)iosIsCocoapods {
 #ifdef COCOAPODS
@@ -193,6 +203,9 @@
 }
 
 - (NSString *)deviceScreenOrientation {
+#ifdef TARGET_OS_MAC
+    return nil;
+#else
     if ([UIDevice class] == nil) {
         return nil;
     }
@@ -213,6 +226,7 @@
         default:
             return @"Unknown";
     }
+#endif
 }
 
 

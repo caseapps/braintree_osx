@@ -1,5 +1,3 @@
-@import PassKit;
-
 #import "BTAPIResponseParser.h"
 
 @interface BTAPIResponseParser ()

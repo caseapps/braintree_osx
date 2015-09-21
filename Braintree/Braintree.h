@@ -1,14 +1,14 @@
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
 #import <Braintree/Braintree-API.h>
+#ifndef TARGET_OS_MAC
 #import <Braintree/Braintree-PayPal.h>
 #import <Braintree/Braintree-Payments-UI.h>
 #import <Braintree/Braintree-Payments.h>
-
 #import <Braintree/BTDropInViewController.h>
 #import <Braintree/BTPaymentButton.h>
 #import <Braintree/BTClientCardTokenizationRequest.h>
+#endif
 
 @class Braintree;
 @class PKPayment;
@@ -51,6 +51,7 @@ typedef void (^BraintreeCompletionBlock)(Braintree *__nullable braintree, NSErro
 /// @return An instance of the Braintree Library to perform payment operations.
 + (nullable Braintree *)braintreeWithClientToken:(NSString *)clientToken;
 
+#ifndef TARGET_OS_MAC
 #pragma mark UI
 
 /// Creates and returns a payment flow for accepting credit card, PayPal and Venmo based payments.
@@ -87,7 +88,7 @@ typedef void (^BraintreeCompletionBlock)(Braintree *__nullable braintree, NSErro
 ///
 /// @return A button you can add to your checkout flow.
 - (BTPaymentButton *)paymentButtonWithDelegate:(id<BTPaymentMethodCreationDelegate>)delegate paymentProviderTypes:(nullable NSOrderedSet *)types;
-
+#endif
 
 #pragma mark Custom
 
@@ -134,7 +135,9 @@ typedef void (^BraintreeCompletionBlock)(Braintree *__nullable braintree, NSErro
 ///
 /// @param type     the payment type to authorize, such as PayPal or Venmo
 /// @param delegate a delegate that receives lifecycle updates about the payment method authorization
+#ifndef TARGET_OS_MAC
 - (BTPaymentProvider *)paymentProviderWithDelegate:(id<BTPaymentMethodCreationDelegate>)delegate;
+#endif
 
 #pragma mark - One Touch Payments
 
@@ -171,7 +174,7 @@ typedef void (^BraintreeCompletionBlock)(Braintree *__nullable braintree, NSErro
 + (NSString *)libraryVersion;
 
 @end
-
+#ifndef TARGET_OS_MAC
 @interface Braintree (Deprecated)
 
 /// Creates and returns a nonce for the given credit card details.
@@ -200,5 +203,5 @@ typedef void (^BraintreeCompletionBlock)(Braintree *__nullable braintree, NSErro
 - (nullable BTPayPalButton *)payPalButtonWithDelegate:(id<BTPayPalButtonDelegate>)delegate DEPRECATED_MSG_ATTRIBUTE("Please use -[Braintree paymentButtonWithDelegate:]");
 
 @end
-
+#endif
 NS_ASSUME_NONNULL_END

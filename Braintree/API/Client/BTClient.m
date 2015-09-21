@@ -1,4 +1,6 @@
+#if BT_ENABLE_APPLE_PAY
 #import <PassKit/PassKit.h>
+#endif
 
 #import "BTClient_Internal.h"
 #import "BTClientToken.h"

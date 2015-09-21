@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-//#import "Braintree.h"
+#import "Braintree.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +17,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSString* clientToken = nil;
-//    Braintree* braintree = [Braintree braintreeWithClientToken: clientToken];
+    Braintree* braintree = [Braintree braintreeWithClientToken: clientToken];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

@@ -1,11 +1,15 @@
 #import "Braintree.h"
+#ifndef TARGET_OS_MAC
 #import "BTPayPalButton.h"
+#endif
 
 /// Private header
 @interface Braintree ()
 
+#ifndef TARGET_OS_MAC
 // For increasing testability
 @property (nonatomic, strong) BTPayPalButton *payPalButton;
+#endif
 
 /// Begins the setup of Braintree-iOS. Once setup is complete, the supplied completionBlock
 /// will be called with either an instance of Braintree or an error.
