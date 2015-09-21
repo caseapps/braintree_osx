@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.subspec "OSX" do |s|
     s.platform = :osx, "10.10"
     s.source_files  = "Braintree/API/**/*.{h,m}", "Braintree/*.{m,h}"
-    s.public_header_files = "Braintree/API/@Public/*.h"    
+    s.public_header_files = "Braintree/API/@Public/*.h", "Braintree/*.h"
   end
 
   s.subspec "Apple-Pay" do |s|
