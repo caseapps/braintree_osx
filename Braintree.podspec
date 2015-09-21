@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.screenshots      = "https://raw.githubusercontent.com/braintree/braintree_ios/master/screenshot.png"
   s.license          = "MIT"
   s.author           = { "Braintree" => "code@getbraintree.com" }
-  s.source           = { :git => "https://github.com/braintree/braintree_ios.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com:caseapps/braintree_osx.git", :tag => s.version.to_s }
   s.social_media_url = "https://twitter.com/braintree"
 
   s.platform         = :ios, "7.0"
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   
   s.subspec "OSX" do |s|
     s.platform = :osx, "10.10"
-    s.source_files  = "Braintree/API/**/*.{h,m}"
+    s.source_files  = "Braintree/API/**/*.{h,m}", "Braintree/*.{m,h}"
     s.public_header_files = "Braintree/API/@Public/*.h"    
   end
 
