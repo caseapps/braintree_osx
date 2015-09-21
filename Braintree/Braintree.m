@@ -1,10 +1,10 @@
 #import "Braintree_Internal.h"
 
 #import "BTClient.h"
-#import "BTClient+BTPayPal.h"
 #import "BTClient_Internal.h"
 #import "BTLogger_Internal.h"
 #ifndef TARGET_OS_MAC
+#import "BTClient+BTPayPal.h"
 #import "BTPayPalButton.h"
 #import "BTPaymentProvider.h"
 #import "BTDropInViewController.h"
