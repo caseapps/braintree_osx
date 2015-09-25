@@ -14,7 +14,13 @@
 }
 
 + (NSString *)keychainKeyForKey:(NSString *)key {
+#ifndef TARGET_OS_MAC
     return [NSString stringWithFormat:@"com.braintreepayments.Braintree-API.%@", key];
+#else
+    NSString* bundleId = [NSBundle mainBundle].bundleIdentifier;
+    return [NSString stringWithFormat:@"%@.Braintree-API.%@", bundleId, key];
+#endif
+    
 }
 
 + (BOOL)setData:(NSData *)data forKey:(NSString *)key {
@@ -41,7 +47,9 @@
         if(data) {
             NSMutableDictionary *addDict = existsQueryDictionary;
             [addDict setObject:data forKey:(__bridge id)kSecValueData];
+#ifndef TARGET_OS_MAC
             [addDict setObject:(__bridge id)kSecAttrAccessibleWhenUnlockedThisDeviceOnly forKey:(__bridge id)kSecAttrAccessible];
+#endif
 
             res = SecItemAdd((__bridge CFDictionaryRef)addDict, NULL);
             if (res != errSecSuccess) {
