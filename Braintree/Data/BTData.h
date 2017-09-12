@@ -33,14 +33,14 @@ typedef NS_ENUM(NSInteger, BTDataEnvironment) {
 /// @param delegate Object to notify
 @property (nonatomic, weak) id<BTDataDelegate> delegate;
 
-/// Initialize a BTData instance for use alongside an existing BTClient instance
+/// Initialize a BTData instance for use alongside an existing BTAPIClient instance
 ///
 /// @note BTData cannot currently read the Kount environment from BTClient. In the future, we will replace
 ///       this method with a simpler `initWithClient:`.
 ///
-/// @param client       A BTClient instance
+/// @param client       A BTAPIClient instance
 /// @param environment  The Braintree Kount configuration
-- (instancetype)initWithClient:(BTClient *)client environment:(BTDataEnvironment)environment NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithClient:(BTAPIClient *)client environment:(BTDataEnvironment)environment NS_DESIGNATED_INITIALIZER;
 
 /// Collect fraud data for the current session.
 ///

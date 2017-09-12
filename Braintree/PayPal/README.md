@@ -43,7 +43,7 @@ A straightforward integration approach is to just add a `BTPayPalButton` instanc
 2. Set the `client` and `delegate` properties of your `BTPayPalButton` instance, e.g.
 
 ```obj-c
-self.payPalButton.client = [[BTClient alloc] initWithClientToken:MY_CLIENT_TOKEN];
+self.payPalButton.client = [[BTAPIClient alloc] initWithClientToken:MY_CLIENT_TOKEN];
 self.payPalButton.delegate = self;
 ```
 

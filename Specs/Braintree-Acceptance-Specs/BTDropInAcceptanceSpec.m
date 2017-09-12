@@ -11,7 +11,7 @@ SpecBegin(DropIn_Acceptance)
 // When running the tests with Xcode, these values do not need
 // to be set to nil/NO here; but with xcodebuild test, they do.
 // The tests fail otherwise!
-__block BTClient *testClient = nil;
+__block BTAPIClient *testClient = nil;
 __block BOOL testShouldEnableCoinbase = NO;
 __block BOOL testShouldHaveCoinbaseAccountInVault = NO;
 __block BOOL testShouldHaveCardInVault = NO;
@@ -26,12 +26,12 @@ afterEach(^{
 describe(@"Drop In view controller", ^{
     beforeEach(^{
         XCTestExpectation *initializeClientExpectation = [self expectationWithDescription:@"initialize client"];
-        [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
+        [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                  BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                  BTClientTestConfigurationKeyCustomer:@YES,
                                                  BTClientTestConfigurationKeyClientTokenVersion: @2 }
                                         async:YES
-                                   completion:^(BTClient *client) {
+                                   completion:^(BTAPIClient *client) {
                                        testClient = client;
                                        [initializeClientExpectation fulfill];
                                    }];
@@ -50,12 +50,12 @@ describe(@"Drop In view controller", ^{
 
             // Reload client with new coinbase merchant options
             XCTestExpectation *reinitializeClientExpectation = [self expectationWithDescription:@"reinitialize client"];
-            [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
+            [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                      BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                      BTClientTestConfigurationKeyCustomer:@YES,
                                                      BTClientTestConfigurationKeyClientTokenVersion: @2 }
                                             async:YES
-                                       completion:^(BTClient *client) {
+                                       completion:^(BTAPIClient *client) {
                                            XCTAssertNotNil(client);
                                            testClient = client;
                                            [reinitializeClientExpectation fulfill];

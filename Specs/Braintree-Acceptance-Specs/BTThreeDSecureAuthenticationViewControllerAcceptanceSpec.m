@@ -9,7 +9,7 @@
 
 @interface BTThreeDSecureAuthenticationViewController_AcceptanceSpecHelper : NSObject <BTThreeDSecureAuthenticationViewControllerDelegate>
 
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 @property (nonatomic, strong) BTThreeDSecureAuthenticationViewController *threeDSecureViewController;
 @property (nonatomic, strong) BTThreeDSecureLookupResult *lookupResult;
 @property (nonatomic, copy) NSString *originalNonce;
@@ -24,13 +24,13 @@
 + (instancetype)helper {
     BTThreeDSecureAuthenticationViewController_AcceptanceSpecHelper *helper = [[self alloc] init];
     waitUntil(^(DoneCallback done) {
-        [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
+        [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                  BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                  BTClientTestConfigurationKeyCustomer:@YES,
                                                  BTClientTestConfigurationKeyClientTokenVersion: @2,
                                                  BTClientTestConfigurationKeyMerchantAccountIdentifier: @"three_d_secure_merchant_account", }
                                          async:YES
-                                         completion:^(BTClient *client) {
+                                         completion:^(BTAPIClient *client) {
                                              helper.client = client;
                                              done();
                                          }];

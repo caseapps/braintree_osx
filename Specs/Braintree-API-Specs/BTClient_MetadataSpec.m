@@ -11,15 +11,15 @@ describe(@"usage of meta by BTClient", ^{
     beforeEach(^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        clientToken = [BTClient offlineTestClientTokenWithAdditionalParameters:nil];
+        clientToken = [BTAPIClient offlineTestClientTokenWithAdditionalParameters:nil];
 #pragma clang diagnostic pop
     });
 
     describe(@"copyWithMetadata:", ^{
-        __block BTClient *client;
+        __block BTAPIClient *client;
         beforeEach(^{
             XCTestExpectation *clientExpectation = [self expectationWithDescription:@"Setup client"];
-            [BTClient setupWithClientToken:clientToken completion:^(BTClient *_client, NSError *error) {
+            [BTAPIClient setupWithClientToken:clientToken completion:^(BTAPIClient *_client, NSError *error) {
                 expect(_client).toNot.beNil();
                 client = _client;
                 [clientExpectation fulfill];
@@ -27,7 +27,7 @@ describe(@"usage of meta by BTClient", ^{
             [self waitForExpectationsWithTimeout:3 handler:nil];
         });
         it(@"returns a copy of the client with new metadata", ^{
-            BTClient *copied = [client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
+            BTAPIClient *copied = [client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
                 metadata.integration = BTClientMetadataIntegrationDropIn;
                 metadata.source = BTClientMetadataSourcePayPalSDK;
             }];
@@ -37,7 +37,7 @@ describe(@"usage of meta by BTClient", ^{
             expect(copied.metadata.sessionId).to.equal(client.metadata.sessionId);
         });
         it(@"does not fail if block is nil", ^{
-            BTClient *copied = [client copyWithMetadata:nil];
+            BTAPIClient *copied = [client copyWithMetadata:nil];
             expect(copied).toNot.beIdenticalTo(client);
             expect(copied.metadata.integration).to.equal(client.metadata.integration);
             expect(copied.metadata.source).to.equal(client.metadata.source);
@@ -47,7 +47,7 @@ describe(@"usage of meta by BTClient", ^{
 
     // Using async initializer:
 
-    describe(@"BTClient POST _meta param", ^{
+    describe(@"BTAPIClient POST _meta param", ^{
 
         describe(@"default values", ^{
             BOOL (^isDefaultMetadata)(NSDictionary *) = ^BOOL(NSDictionary *params) {
@@ -57,9 +57,9 @@ describe(@"usage of meta by BTClient", ^{
             };
 
             it(@"includes default _meta parameters in PayPal requests", ^{
-                __block BTClient *client;
+                __block BTAPIClient *client;
                 XCTestExpectation *clientExpectation = [self expectationWithDescription:@"Setup Client"];
-                [BTClient setupWithClientToken:clientToken completion:^(BTClient *_client, NSError *error) {
+                [BTAPIClient setupWithClientToken:clientToken completion:^(BTAPIClient *_client, NSError *error) {
                     client = _client;
                     [clientExpectation fulfill];
                 }];
@@ -74,9 +74,9 @@ describe(@"usage of meta by BTClient", ^{
             });
 
             it(@"includes default _meta parameters in card requests", ^{
-                __block BTClient *client;
+                __block BTAPIClient *client;
                 XCTestExpectation *clientExpectation = [self expectationWithDescription:@"Setup Client"];
-                [BTClient setupWithClientToken:clientToken completion:^(BTClient *_client, NSError *error) {
+                [BTAPIClient setupWithClientToken:clientToken completion:^(BTAPIClient *_client, NSError *error) {
                     client = _client;
                     [clientExpectation fulfill];
                 }];
@@ -94,9 +94,9 @@ describe(@"usage of meta by BTClient", ^{
             });
 
             it(@"includes _meta parameters in coinbase tokenization requests", ^{
-                __block BTClient *client;
+                __block BTAPIClient *client;
                 XCTestExpectation *clientExpectation = [self expectationWithDescription:@"Setup Client"];
-                [BTClient setupWithClientToken:clientToken completion:^(BTClient *_client, NSError *error) {
+                [BTAPIClient setupWithClientToken:clientToken completion:^(BTAPIClient *_client, NSError *error) {
                     client = _client;
                     [clientExpectation fulfill];
                 }];
@@ -114,15 +114,15 @@ describe(@"usage of meta by BTClient", ^{
         describe(@"custom values", ^{
 
             __block BTClientMutableMetadata *customMetadata;
-            __block BTClient *customMetadataClient;
+            __block BTAPIClient *customMetadataClient;
             beforeEach(^{
 
                 customMetadata = [[BTClientMutableMetadata alloc] init];
                 customMetadata.integration = BTClientMetadataIntegrationDropIn;
                 customMetadata.source = BTClientMetadataSourceForm;
-                __block BTClient *client;
+                __block BTAPIClient *client;
                 XCTestExpectation *clientExpectation = [self expectationWithDescription:@"Setup Client"];
-                [BTClient setupWithClientToken:clientToken completion:^(BTClient *_client, NSError *error) {
+                [BTAPIClient setupWithClientToken:clientToken completion:^(BTAPIClient *_client, NSError *error) {
                     client = _client;
                     [clientExpectation fulfill];
                 }];
@@ -163,16 +163,16 @@ describe(@"usage of meta by BTClient", ^{
     // Test deprecated behavior:
 
     describe(@"copyWithMetadata:", ^{
-        __block BTClient *client;
+        __block BTAPIClient *client;
         beforeEach(^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            client = [[BTClient alloc] initWithClientToken:clientToken];
+            client = [[BTAPIClient alloc] initWithClientToken:clientToken];
 #pragma clang diagnostic pop
         });
 
         it(@"returns a copy of the client with new metadata", ^{
-            BTClient *copied = [client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
+            BTAPIClient *copied = [client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
                 metadata.integration = BTClientMetadataIntegrationDropIn;
                 metadata.source = BTClientMetadataSourcePayPalSDK;
             }];
@@ -182,14 +182,14 @@ describe(@"usage of meta by BTClient", ^{
         });
 
         it(@"does not fail if block is nil", ^{
-            BTClient *copied = [client copyWithMetadata:nil];
+            BTAPIClient *copied = [client copyWithMetadata:nil];
             expect(copied).toNot.beIdenticalTo(client);
             expect(copied.metadata.integration).to.equal(client.metadata.integration);
             expect(copied.metadata.source).to.equal(client.metadata.source);
         });
     });
 
-    describe(@"BTClient POST _meta param", ^{
+    describe(@"BTAPIClient POST _meta param", ^{
 
         describe(@"default values", ^{
             BOOL (^isDefaultMetadata)(NSDictionary *) = ^BOOL(NSDictionary *params) {
@@ -203,7 +203,7 @@ describe(@"usage of meta by BTClient", ^{
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
             it(@"includes default _meta parameters in PayPal requests", ^{
-                BTClient *client = [[BTClient alloc] initWithClientToken:clientToken];
+                BTAPIClient *client = [[BTAPIClient alloc] initWithClientToken:clientToken];
                 OCMockObject *mockHttp = [OCMockObject mockForClass:[BTHTTP class]];
                 [[mockHttp expect] POST:[OCMArg any] parameters:[OCMArg checkWithBlock:^BOOL(NSDictionary *obj) {
                     return isDefaultMetadata(obj) && [obj[@"_meta"][@"sessionId"] isEqualToString:client.metadata.sessionId];
@@ -214,7 +214,7 @@ describe(@"usage of meta by BTClient", ^{
             });
 
             it(@"includes default _meta parameters in card requests", ^{
-                BTClient *client = [[BTClient alloc] initWithClientToken:clientToken];
+                BTAPIClient *client = [[BTAPIClient alloc] initWithClientToken:clientToken];
                 OCMockObject *mockHttp = [OCMockObject mockForClass:[BTHTTP class]];
                 [[mockHttp expect] POST:[OCMArg any] parameters:[OCMArg checkWithBlock:^BOOL(NSDictionary *obj) {
                     return isDefaultMetadata(obj) && [obj[@"_meta"][@"sessionId"] isEqualToString:client.metadata.sessionId];
@@ -233,7 +233,7 @@ describe(@"usage of meta by BTClient", ^{
         describe(@"custom values", ^{
 
             __block BTClientMutableMetadata *customMetadata;
-            __block BTClient *customMetadataClient, *originalClient;
+            __block BTAPIClient *customMetadataClient, *originalClient;
             beforeEach(^{
 
                 customMetadata = [[BTClientMutableMetadata alloc] init];
@@ -241,7 +241,7 @@ describe(@"usage of meta by BTClient", ^{
                 customMetadata.source = BTClientMetadataSourceForm;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                originalClient = [[BTClient alloc] initWithClientToken:clientToken];
+                originalClient = [[BTAPIClient alloc] initWithClientToken:clientToken];
                 customMetadataClient = [originalClient copyWithMetadata:^(BTClientMutableMetadata *metadata) {
                     metadata.integration = customMetadata.integration;
                     metadata.source = customMetadata.source;

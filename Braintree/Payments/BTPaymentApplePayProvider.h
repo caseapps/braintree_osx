@@ -16,10 +16,10 @@
 
 /// Initializes an Apple Pay Provider
 ///
-/// @param client a BTClient that is used to upload the encrypted payment data to Braintree
+/// @param client a BTAPIClient that is used to upload the encrypted payment data to Braintree
 ///
 /// @return An initialized Apple Pay provider
-- (instancetype)initWithClient:(BTClient *)client NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithClient:(BTAPIClient *)client NS_DESIGNATED_INITIALIZER;
 
 /// A required delegate that should receive notifications about the payment method
 /// creation lifecycle.

@@ -13,7 +13,7 @@ describe(@"btVenmo_status", ^{
                                                                        overrides:@{ BTConfigurationKeyVenmo: [NSNull null] }];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        BTClient *client = [[BTClient alloc] initWithClientToken:clientTokenString];
+        BTAPIClient *client = [[BTAPIClient alloc] initWithClientToken:clientTokenString];
 #pragma clang diagnostic pop
         expect(client.btVenmo_status).to.equal(BTVenmoStatusOff);
     });
@@ -23,7 +23,7 @@ describe(@"btVenmo_status", ^{
                                                                        overrides:@{BTConfigurationKeyVenmo:@{@"yo": @"yoyo"}}];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        BTClient *client = [[BTClient alloc] initWithClientToken:clientTokenString];
+        BTAPIClient *client = [[BTAPIClient alloc] initWithClientToken:clientTokenString];
 #pragma clang diagnostic pop
         expect(client.btVenmo_status).to.equal(BTVenmoStatusOff);
     });
@@ -33,7 +33,7 @@ describe(@"btVenmo_status", ^{
                                                                        overrides:@{BTConfigurationKeyVenmo:@"off"}];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        BTClient *client = [[BTClient alloc] initWithClientToken:clientTokenString];
+        BTAPIClient *client = [[BTAPIClient alloc] initWithClientToken:clientTokenString];
 #pragma clang diagnostic pop
         expect(client.btVenmo_status).to.equal(BTVenmoStatusOff);
     });
@@ -43,7 +43,7 @@ describe(@"btVenmo_status", ^{
                                                                        overrides:@{BTConfigurationKeyVenmo:@"production"}];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        BTClient *client = [[BTClient alloc] initWithClientToken:clientTokenString];
+        BTAPIClient *client = [[BTAPIClient alloc] initWithClientToken:clientTokenString];
 #pragma clang diagnostic pop
         expect(client.btVenmo_status).to.equal(BTVenmoStatusProduction);
     });
@@ -53,7 +53,7 @@ describe(@"btVenmo_status", ^{
                                                                        overrides:@{BTConfigurationKeyVenmo:@"offline"}];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        BTClient *client = [[BTClient alloc] initWithClientToken:clientTokenString];
+        BTAPIClient *client = [[BTAPIClient alloc] initWithClientToken:clientTokenString];
 #pragma clang diagnostic pop
         expect(client.btVenmo_status).to.equal(BTVenmoStatusOffline);
     });

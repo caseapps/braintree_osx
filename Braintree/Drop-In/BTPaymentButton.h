@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSOrderedSet *enabledPaymentProviderTypes;
 
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 @property (nonatomic, weak) id<BTPaymentMethodCreationDelegate> delegate;
 
 @property (nonatomic, readonly) BOOL hasAvailablePaymentMethod;

@@ -317,7 +317,7 @@
 
 - (NSString *)userAgentString {
     return [NSString stringWithFormat:@"Braintree/iOS/%@",
-            [BTClient libraryVersion]];
+            [BTAPIClient libraryVersion]];
 }
 
 - (NSString *)platformString {

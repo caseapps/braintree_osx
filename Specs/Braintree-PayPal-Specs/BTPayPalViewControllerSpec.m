@@ -3,10 +3,10 @@
 
 SpecBegin(BTPayPalViewController)
 
-__block BTClient *client;
+__block BTAPIClient *client;
 
 beforeEach(^{
-    client = [OCMockObject mockForClass:[BTClient class]];
+    client = [OCMockObject mockForClass:[BTAPIClient class]];
 });
 
 afterEach(^{

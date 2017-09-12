@@ -76,7 +76,7 @@
 }
 
 - (NSString *)sdkVersion {
-    return [BTClient libraryVersion];
+    return [BTAPIClient libraryVersion];
 }
 
 - (NSString *)merchantAppId {

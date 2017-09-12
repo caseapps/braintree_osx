@@ -4,19 +4,19 @@
 SpecBegin(BTThreeDSecure)
 
 describe(@"verifyCardWithNonce:amount:", ^{
-    __block BTClient *client;
+    __block BTAPIClient *client;
     __block id<BTPaymentMethodCreationDelegate> delegate;
     __block NSString *nonce;
 
     beforeEach(^{
         waitUntil(^(DoneCallback done) {
-            [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
+            [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                      BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                      BTClientTestConfigurationKeyCustomer:@YES,
                                                      BTClientTestConfigurationKeyClientTokenVersion: @2,
                                                      BTClientTestConfigurationKeyMerchantAccountIdentifier: @"three_d_secure_merchant_account", }
                                        async:YES
-                                       completion:^(BTClient *aClient) {
+                                       completion:^(BTAPIClient *aClient) {
                                            client = aClient;
                                            BTClientCardRequest *r = [[BTClientCardRequest alloc] init];
                                            r.number = @"4000000000000002";

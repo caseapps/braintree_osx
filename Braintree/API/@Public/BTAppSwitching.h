@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///  Attempt to initiate app switch
 ///
-///  @param client   A BTClient needed for obtaining app switch configuration,
+///  @param client   A BTAPIClient needed for obtaining app switch configuration,
 ///                  reporting analytics events, and performing post-switch
 ///                  gateway operations.
 ///  @param delegate A delegate that will receive messags throughout the app
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///  @param error    Error encountered in attempting to app switch if applicable.
 ///
 ///  @return whether app switch is occurring.
-- (BOOL)initiateAppSwitchWithClient:(BTClient *)client delegate:(id<BTAppSwitchingDelegate>)delegate error:(NSError * __autoreleasing *)error;
+- (BOOL)initiateAppSwitchWithClient:(BTAPIClient *)client delegate:(id<BTAppSwitchingDelegate>)delegate error:(NSError * __autoreleasing *)error;
 
 ///  Whether this instance can be used to handle this response URL.
 ///

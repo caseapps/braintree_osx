@@ -5,7 +5,7 @@
 #import "BTCoinbaseOAuth.h"
 
 @interface BTCoinbase ()
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 @property (nonatomic, assign) BTCoinbaseOAuthAuthenticationMechanism authenticationMechanism;
 @end
 
@@ -29,7 +29,7 @@
     return coinbase;
 }
 
-- (BOOL)providerAppSwitchAvailableForClient:(BTClient *)client {
+- (BOOL)providerAppSwitchAvailableForClient:(BTAPIClient *)client {
     return self.returnURLScheme && [self appSwitchAvailableForClient:client] && [BTCoinbaseOAuth isAppOAuthAuthenticationAvailable];
 }
 
@@ -50,12 +50,12 @@
 
 #pragma mark BTAppSwitching
 
-- (BOOL)appSwitchAvailableForClient:(BTClient *)client {
+- (BOOL)appSwitchAvailableForClient:(BTAPIClient *)client {
     return client.configuration.coinbaseEnabled == YES && self.disabled == NO;
 }
 
 // In this context, "AppSwitch" includes both browser switch and provider app switch
-- (BOOL)initiateAppSwitchWithClient:(BTClient *)client delegate:(id<BTAppSwitchingDelegate>)delegate error:(NSError *__autoreleasing *)error {
+- (BOOL)initiateAppSwitchWithClient:(BTAPIClient *)client delegate:(id<BTAppSwitchingDelegate>)delegate error:(NSError *__autoreleasing *)error {
 
     [BTCoinbaseOAuth setBaseURL:[client.configuration.coinbaseEnvironment isEqualToString:@"shared_sandbox"] ? [NSURL URLWithString:@"https://sandbox.coinbase.com/"] : nil];
 
@@ -199,7 +199,7 @@
 
 #pragma mark Helpers
 
-- (BTClient *)clientWithMetadataForAuthenticationMechanism:(BTCoinbaseOAuthAuthenticationMechanism)authenticationMechanism {
+- (BTAPIClient *)clientWithMetadataForAuthenticationMechanism:(BTCoinbaseOAuthAuthenticationMechanism)authenticationMechanism {
     return [self.client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
         switch (authenticationMechanism) {
             case BTCoinbaseOAuthMechanismApp:

@@ -59,7 +59,7 @@
 }
 
 - (void)testBTClientExcludesApplePay {
-    XCTAssertFalse([BTClient instancesRespondToSelector:NSSelectorFromString(@"saveApplePayPayment:success:failure:")]);
+    XCTAssertFalse([BTAPIClient instancesRespondToSelector:NSSelectorFromString(@"saveApplePayPayment:success:failure:")]);
 }
 
 @end

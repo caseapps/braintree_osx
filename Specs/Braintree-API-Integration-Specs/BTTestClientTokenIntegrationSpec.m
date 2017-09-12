@@ -5,7 +5,7 @@ SpecBegin(BTClientToken_Integration)
 describe(@"initForTestingWithConfiguration:", ^{
     it(@"returns a preconfigured client with a version 2 client token", ^{
         waitUntil(^(DoneCallback done){
-            [BTClient testClientWithConfiguration:@{
+            [BTAPIClient testClientWithConfiguration:@{
                                                     BTClientTestConfigurationKeyMerchantIdentifier: @"integration_merchant_id",
                                                     BTClientTestConfigurationKeyPublicKey: @"integration_public_key",
                                                     BTClientTestConfigurationKeyCustomer: @"myCustomer",
@@ -15,8 +15,8 @@ describe(@"initForTestingWithConfiguration:", ^{
                                                     BTClientTestConfigurationKeyAnalytics: @{ BTClientTestConfigurationKeyURL: @"http://analytics.example.com" }
                                                     }
                                                     async:YES
-                                                    completion:^(BTClient *client) {
-                                                        expect(client).to.beKindOf([BTClient class]);
+                                                    completion:^(BTAPIClient *client) {
+                                                        expect(client).to.beKindOf([BTAPIClient class]);
                                                         expect(client.challenges).to.equal([NSSet setWithArray:@[]]);
                                                         done();
                                                     }];
@@ -25,7 +25,7 @@ describe(@"initForTestingWithConfiguration:", ^{
 
     it(@"returns a preconfigured client based on a version 1 client token", ^{
         waitUntil(^(DoneCallback done){
-            [BTClient testClientWithConfiguration:@{
+            [BTAPIClient testClientWithConfiguration:@{
                                                     BTClientTestConfigurationKeyMerchantIdentifier: @"integration_merchant_id",
                                                     BTClientTestConfigurationKeyPublicKey: @"integration_public_key",
                                                     BTClientTestConfigurationKeyCustomer: @"myCustomer",
@@ -34,8 +34,8 @@ describe(@"initForTestingWithConfiguration:", ^{
                                                     BTClientTestConfigurationKeyClientTokenVersion: @1,
                                                     }
                                                     async:YES
-                                                    completion:^(BTClient *client) {
-                                                        expect(client).to.beKindOf([BTClient class]);
+                                                    completion:^(BTAPIClient *client) {
+                                                        expect(client).to.beKindOf([BTAPIClient class]);
                                                         expect(client.challenges).to.equal([NSSet setWithArray:@[]]);
                                                         done();
                                                     }];

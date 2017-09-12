@@ -11,7 +11,7 @@ extern NSString *const BTClientPayPalMobileEnvironmentName;
 /// If this scope is set, the billingAddress property of the returned BTPayPalPaymentMethod should be populated with a BTPostalAddress.
 extern NSString *const BTPayPalScopeAddress;
 
-@interface BTClient (BTPayPal)
+@interface BTAPIClient (BTPayPal)
 
 + (NSString *)btPayPal_offlineTestClientToken;
 - (BOOL)btPayPal_preparePayPalMobileWithError:(NSError * __autoreleasing *)error;

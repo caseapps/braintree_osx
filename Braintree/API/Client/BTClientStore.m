@@ -20,19 +20,19 @@ static NSString *const keyPrefix = @"BTAppSwitchClientStore.";
     return self;
 }
 
-- (BTClient *)fetchClient {
+- (BTAPIClient *)fetchClient {
     NSData *clientData = [BTKeychain dataForKey:self.keychainKey];
     if (clientData == nil) {
         return nil;
     }
 
     NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:clientData];
-    BTClient *client = [[BTClient alloc] initWithCoder:decoder];
+    BTAPIClient *client = [[BTAPIClient alloc] initWithCoder:decoder];
     [decoder finishDecoding];
     return client;
 }
 
-- (void)storeClient:(BTClient *)client {
+- (void)storeClient:(BTAPIClient *)client {
     NSMutableData *clientData = [NSMutableData data];
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:clientData];
     [client encodeWithCoder:coder];

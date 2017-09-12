@@ -41,6 +41,6 @@
 /// @return YES if the Coinbase native app is available for app switch.
 ///
 /// @see `+[Braintree setReturnURLScheme:]`
-- (BOOL)providerAppSwitchAvailableForClient:(BTClient *)client;
+- (BOOL)providerAppSwitchAvailableForClient:(BTAPIClient *)client;
 
 @end

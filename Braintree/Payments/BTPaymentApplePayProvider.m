@@ -15,7 +15,7 @@
 @interface BTPaymentApplePayProvider ()
 #endif
 
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 @property (nonatomic, strong) NSError *applePayError;
 @property (nonatomic, strong) BTPaymentMethod *applePayPaymentMethod;
 
@@ -29,7 +29,7 @@
     return [super init];
 }
 
-- (instancetype)initWithClient:(BTClient *)client {
+- (instancetype)initWithClient:(BTAPIClient *)client {
     self = [super init];
     if (self) {
         self.client = client;

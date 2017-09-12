@@ -12,12 +12,12 @@ NSString *const BTCoinbaseAcceptanceSpecCoinbaseScheme = @"com.coinbase.oauth-au
     [super viewDidLoad];
     self.title = NSStringFromClass([self class]);
     self.view.backgroundColor = [UIColor whiteColor];
-    [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
+    [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                              BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                              BTClientTestConfigurationKeyCustomer:@YES,
                                              BTClientTestConfigurationKeyClientTokenVersion: @2 }
                                     async:YES
-                               completion:^(BTClient *client) {
+                               completion:^(BTAPIClient *client) {
                                    id mockApplication = [OCMockObject partialMockForObject:[UIApplication sharedApplication]];
                                    [[mockApplication stub] openURL:[OCMArg isNotEqual:BTCoinbaseAcceptanceSpecCoinbaseScheme]];
                                    [[mockApplication stub] canOpenURL:[OCMArg isNotEqual:BTCoinbaseAcceptanceSpecCoinbaseScheme]];

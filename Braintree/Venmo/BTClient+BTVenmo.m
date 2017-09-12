@@ -4,7 +4,7 @@
 NSString *const BTVenmoStatusValueProduction = @"production";
 NSString *const BTVenmoStatusValueOffline = @"offline";
 
-@implementation BTClient (BTVenmo)
+@implementation BTAPIClient (BTVenmo)
 
 - (BTVenmoStatus)btVenmo_status {
     NSString *status = self.configuration.btVenmo_status;

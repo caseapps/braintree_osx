@@ -13,7 +13,7 @@ describe(@"canAuthorizeApplePayPayment", ^{
     BTPaymentApplePayProvider *(^testApplePayProvider)(BOOL isSimulator, BTClientApplePayStatus applePayStatus, BOOL paymentAuthorizationViewControllerAvailable);
 
     testApplePayProvider = ^BTPaymentApplePayProvider *(BOOL isSimulator, BTClientApplePayStatus applePayStatus, BOOL paymentAuthorizationViewControllerAvailable){
-        id mockClient = [OCMockObject mockForClass:[BTClient class]];
+        id mockClient = [OCMockObject mockForClass:[BTAPIClient class]];
         [[mockClient stub] postAnalyticsEvent:OCMOCK_ANY];
         BTPaymentApplePayProvider *applePayProvider = [[BTPaymentApplePayProvider alloc] initWithClient:mockClient];
 
@@ -86,7 +86,7 @@ describe(@"paymentAuthorizationViewControllerAvailable", ^{
         [[[mockConfiguration stub] andReturn:@"US"] applePayCountryCode];
 
 
-        id mockClient = [OCMockObject mockForClass:[BTClient class]];
+        id mockClient = [OCMockObject mockForClass:[BTAPIClient class]];
         [[[mockClient stub] andReturn:mockConfiguration] configuration];
         [[mockClient stub] postAnalyticsEvent:OCMOCK_ANY];
 
@@ -154,7 +154,7 @@ describe(@"authorizeApplePay", ^{
     __block id mockApplePayPaymentProvider;
 
     testApplePayProvider = ^BTPaymentApplePayProvider *(BOOL isSimulator, BOOL paymentAuthorizationViewControllerAvailable){
-        id mockClient = [OCMockObject mockForClass:[BTClient class]];
+        id mockClient = [OCMockObject mockForClass:[BTAPIClient class]];
         [[mockClient stub] postAnalyticsEvent:OCMOCK_ANY];
         BTPaymentApplePayProvider *applePayProvider = [[BTPaymentApplePayProvider alloc] initWithClient:mockClient];
 

@@ -11,7 +11,7 @@ __block id delegate;
 __block id payPalTouch;
 
 beforeEach(^{
-    client = [OCMockObject mockForClass:[BTClient class]];
+    client = [OCMockObject mockForClass:[BTAPIClient class]];
     delegate = [OCMockObject mockForProtocol:@protocol(BTAppSwitchingDelegate)];
     payPalTouch = [OCMockObject mockForClass:[PayPalTouch class]];
 

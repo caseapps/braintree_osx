@@ -17,7 +17,7 @@
 
 @implementation BTPaymentProvider
 
-- (instancetype)initWithClient:(BTClient *)client {
+- (instancetype)initWithClient:(BTAPIClient *)client {
     self = [super init];
     if (self) {
         self.client = client;
@@ -58,7 +58,7 @@
     }
 }
 
-- (void)setClient:(BTClient *)client {
+- (void)setClient:(BTAPIClient *)client {
     _client = client;
 
     // If PayPal is a possibility with this client, prepare.

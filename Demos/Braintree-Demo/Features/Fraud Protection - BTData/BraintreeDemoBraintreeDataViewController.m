@@ -12,7 +12,7 @@
 /// Retain BTData for entire lifecycle of view controller
 @property (nonatomic, strong) BTData *data;
 
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 @end
 
 @implementation BraintreeDemoBraintreeDataViewController
@@ -20,7 +20,7 @@
 - (instancetype)initWithClientToken:(NSString *)clientToken {
     self = [super initWithClientToken:clientToken];
     if (self) {
-        self.client = [[BTClient alloc] initWithClientToken:clientToken];
+        self.client = [[BTAPIClient alloc] initWithClientToken:clientToken];
     }
     return self;
 }

@@ -48,7 +48,7 @@ typedef void (^BTClientFailureBlock)(NSError *error);
 /// A `BTClient` performs Braintree API operations and returns
 /// resulting responses or errors. It is the entry-point for all
 /// communication with Braintree.
-@interface BTClient : NSObject <NSCoding, NSCopying>
+@interface BTAPIClient : NSObject <NSCoding, NSCopying>
 
 /// Initialize and configure a `BTClient` with a client token.
 /// The client token dictates the behavior of subsequent operations.
@@ -117,7 +117,7 @@ typedef void (^BTClientFailureBlock)(NSError *error);
 /// Save a paypal payment method to Braintree
 ///
 /// @param authCode Authorization Code
-/// @param applicationCorrelationID PayPal App Correlation Id (See `-[BTClient btPayPal_applicationCorrelationId]` and https://github.com/paypal/PayPal-iOS-SDK/blob/master/docs/future_payments_mobile.md#obtain-an-application-correlation-id.)
+/// @param applicationCorrelationID PayPal App Correlation Id (See `-[BTAPIClient btPayPal_applicationCorrelationId]` and https://github.com/paypal/PayPal-iOS-SDK/blob/master/docs/future_payments_mobile.md#obtain-an-application-correlation-id.)
 /// @param successBlock success callback for handling the resulting new PayPal account payment method
 /// @param failureBlock failure callback for handling errors
 - (void)savePaypalPaymentMethodWithAuthCode:(NSString *)authCode
@@ -144,7 +144,7 @@ typedef void (^BTClientFailureBlock)(NSError *error);
 /// savePaypalPaymentMethodWithAuthCode:applicationCorrelationID:success:failure: for clarity
 ///
 /// @param authCode Authorization Code
-/// @param correlationId PayPal App Correlation ID (See `-[BTClient btPayPal_applicationCorrelationId]` and https://github.com/paypal/PayPal-iOS-SDK/blob/master/docs/future_payments_mobile.md#obtain-an-application-correlation-id.)
+/// @param correlationId PayPal App Correlation ID (See `-[BTAPIClient btPayPal_applicationCorrelationId]` and https://github.com/paypal/PayPal-iOS-SDK/blob/master/docs/future_payments_mobile.md#obtain-an-application-correlation-id.)
 /// @param successBlock success callback for handling the resulting new PayPal account payment method
 /// @param failureBlock failure callback for handling errors
 - (void)savePaypalPaymentMethodWithAuthCode:(NSString *)authCode
@@ -184,7 +184,7 @@ typedef void (^BTClientFailureBlock)(NSError *error);
 
 @end
 
-@interface BTClient (Deprecated)
+@interface BTAPIClient (Deprecated)
 
 /// Save a card to Braintree
 ///

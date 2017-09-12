@@ -20,7 +20,7 @@
     }
 }
 
-- (BOOL)initiateAppSwitchWithClient:(BTClient *)client delegate:(id<BTAppSwitchingDelegate>)delegate error:(NSError *__autoreleasing *)error {
+- (BOOL)initiateAppSwitchWithClient:(BTAPIClient *)client delegate:(id<BTAppSwitchingDelegate>)delegate error:(NSError *__autoreleasing *)error {
 
     client = [client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
         metadata.source = BTClientMetadataSourceVenmoApp;
@@ -82,11 +82,11 @@
 }
 
 
-- (BOOL)appSwitchAvailableForClient:(BTClient *)client {
+- (BOOL)appSwitchAvailableForClient:(BTAPIClient *)client {
     return [self appSwitchErrorForClient:client] == nil;
 }
 
-- (NSError *)appSwitchErrorForClient:(BTClient *)client {
+- (NSError *)appSwitchErrorForClient:(BTAPIClient *)client {
 
     if ([client btVenmo_status] == BTVenmoStatusOff) {
         return [NSError errorWithDomain:BTAppSwitchErrorDomain

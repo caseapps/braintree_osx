@@ -3,6 +3,6 @@
 
 @interface BTVenmoAppSwitchHandler ()
 
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 
 @end

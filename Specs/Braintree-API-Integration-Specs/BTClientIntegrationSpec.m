@@ -9,19 +9,19 @@ SharedExamplesBegin(BTClient_Integration)
 
 sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
-  __block BTClient *testClient;
+  __block BTAPIClient *testClient;
   __block BOOL asyncClient = [data[@"asyncClient"] boolValue];
 
   beforeEach(^{
     XCTestExpectation *expectation = [self expectationWithDescription:@"Load test client token"];
-    [BTClient testClientWithConfiguration:@{
+    [BTAPIClient testClientWithConfiguration:@{
                                             BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                             BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                             BTClientTestConfigurationKeyCustomer:@YES,
                                             BTClientTestConfigurationKeyClientTokenVersion: @2
                                             }
                                             async:asyncClient
-                                            completion:^(BTClient *client) {
+                                            completion:^(BTAPIClient *client) {
                                               testClient = client;
                                               [expectation fulfill];
                                             }];
@@ -31,11 +31,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
   describe(@"challenges", ^{
       it(@"returns a set of Gateway specified challenge questions for the merchant", ^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch test client"];
-          [BTClient testClientWithConfiguration:@{
+          [BTAPIClient testClientWithConfiguration:@{
                                                   BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                   BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                   BTClientTestConfigurationKeyCustomer:@YES }
-                                          async:asyncClient completion:^(BTClient *client) {
+                                          async:asyncClient completion:^(BTAPIClient *client) {
                                          expect(client.challenges).to.haveCountOf(0);
                                          [expectation fulfill];
                                      }];
@@ -43,11 +43,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
       });
       it(@"returns a set of Gateway specified challenge questions for the merchant", ^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch test client"];
-          [BTClient testClientWithConfiguration:@{
+          [BTAPIClient testClientWithConfiguration:@{
                                                   BTClientTestConfigurationKeyMerchantIdentifier:@"client_api_cvv_verification_merchant_id",
                                                   BTClientTestConfigurationKeyPublicKey:@"client_api_cvv_verification_public_key",
                                                   BTClientTestConfigurationKeyCustomer:@YES }
-                                     async:asyncClient completion:^(BTClient *client) {
+                                     async:asyncClient completion:^(BTAPIClient *client) {
                                          expect(client.challenges).to.haveCountOf(1);
                                          expect(client.challenges).to.contain(@"cvv");
                                          [expectation fulfill];
@@ -56,11 +56,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
       });
       it(@"returns a set of Gateway specified challenge questions for the merchant", ^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch test client"];
-          [BTClient testClientWithConfiguration:@{
+          [BTAPIClient testClientWithConfiguration:@{
                                                   BTClientTestConfigurationKeyMerchantIdentifier:@"client_api_postal_code_verification_merchant_id",
                                                   BTClientTestConfigurationKeyPublicKey:@"client_api_postal_code_verification_public_key",
                                                   BTClientTestConfigurationKeyCustomer:@YES }
-                                     async:asyncClient completion:^(BTClient *client) {
+                                     async:asyncClient completion:^(BTAPIClient *client) {
                                          expect(client.challenges).to.haveCountOf(1);
                                          expect(client.challenges).to.contain(@"postal_code");
                                          [expectation fulfill];
@@ -69,11 +69,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
       });
       it(@"returns a set of Gateway specified challenge questions for the merchant", ^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch test client"];
-          [BTClient testClientWithConfiguration:@{
+          [BTAPIClient testClientWithConfiguration:@{
                                                   BTClientTestConfigurationKeyMerchantIdentifier:@"client_api_cvv_and_postal_code_verification_merchant_id",
                                                   BTClientTestConfigurationKeyPublicKey:@"client_api_cvv_and_postal_code_verification_public_key",
                                                   BTClientTestConfigurationKeyCustomer:@YES }
-                                     async:asyncClient completion:^(BTClient *client) {
+                                     async:asyncClient completion:^(BTAPIClient *client) {
                                          expect(client.challenges).to.haveCountOf(2);
                                          expect(client.challenges).to.contain(@"postal_code");
                                          expect(client.challenges).to.contain(@"cvv");
@@ -223,14 +223,14 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
       });
 
       describe(@"for a merchant with payment method verification enabled", ^{
-          __block BTClient *cvvAndZipClient;
+          __block BTAPIClient *cvvAndZipClient;
           beforeEach(^{
               XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch client"];
-              [BTClient testClientWithConfiguration:@{
+              [BTAPIClient testClientWithConfiguration:@{
                                                       BTClientTestConfigurationKeyMerchantIdentifier: @"client_api_cvv_and_postal_code_verification_merchant_id",
                                                       BTClientTestConfigurationKeyPublicKey: @"client_api_cvv_and_postal_code_verification_public_key",
                                                       BTClientTestConfigurationKeyCustomer: @YES }
-                                         async:asyncClient completion:^(BTClient *client) {
+                                         async:asyncClient completion:^(BTAPIClient *client) {
                                              cvvAndZipClient = client;
                                              [expectation fulfill];
                                          }];
@@ -256,11 +256,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
           it(@"fails to save a card when a cvv response is incorrect", ^{
               XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch client and save card"];
-              [BTClient testClientWithConfiguration:@{
+              [BTAPIClient testClientWithConfiguration:@{
                                                       BTClientTestConfigurationKeyMerchantIdentifier: @"client_api_cvv_verification_merchant_id",
                                                       BTClientTestConfigurationKeyPublicKey: @"client_api_cvv_verification_public_key",
                                                       BTClientTestConfigurationKeyCustomer: @YES }
-                                         async:asyncClient completion:^(BTClient *cvvClient) {
+                                         async:asyncClient completion:^(BTAPIClient *cvvClient) {
                                              BTClientCardRequest *request = [[BTClientCardRequest alloc] init];
 
                                              request.number = @"4111111111111111";
@@ -285,11 +285,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
           it(@"fails to save a card when a postal code response is incorrect", ^{
               XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch client and save card"];
               BTClientCardRequest *request = [[BTClientCardRequest alloc] init];
-              [BTClient testClientWithConfiguration:@{
+              [BTAPIClient testClientWithConfiguration:@{
                                                       BTClientTestConfigurationKeyMerchantIdentifier: @"client_api_postal_code_verification_merchant_id",
                                                       BTClientTestConfigurationKeyPublicKey: @"client_api_postal_code_verification_public_key",
                                                       BTClientTestConfigurationKeyCustomer: @YES }
-                                         async:asyncClient completion:^(BTClient *zipClient) {
+                                         async:asyncClient completion:^(BTAPIClient *zipClient) {
                                              request.number = @"4111111111111111";
                                              request.expirationMonth = @"12";
                                              request.expirationYear = @"38";
@@ -476,14 +476,14 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
           });
 
           describe(@"for a merchant with payment method verification enabled", ^{
-              __block BTClient *cvvAndZipClient;
+              __block BTAPIClient *cvvAndZipClient;
               beforeEach(^{
                   XCTestExpectation *expectation = [self expectationWithDescription:@"Save card"];
-                  [BTClient testClientWithConfiguration:@{
+                  [BTAPIClient testClientWithConfiguration:@{
                                                           BTClientTestConfigurationKeyMerchantIdentifier: @"client_api_cvv_and_postal_code_verification_merchant_id",
                                                           BTClientTestConfigurationKeyPublicKey: @"client_api_cvv_and_postal_code_verification_public_key",
                                                           BTClientTestConfigurationKeyCustomer: @YES }
-                                             async:asyncClient completion:^(BTClient *client) {
+                                             async:asyncClient completion:^(BTAPIClient *client) {
                                                  cvvAndZipClient = client;
                                                  [expectation fulfill];
                                              }];
@@ -507,11 +507,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
               it(@"fails to save a card when a cvv response is incorrect", ^{
                   XCTestExpectation *expectation = [self expectationWithDescription:@"Fail to save card"];
-                  [BTClient testClientWithConfiguration:@{
+                  [BTAPIClient testClientWithConfiguration:@{
                                                           BTClientTestConfigurationKeyMerchantIdentifier: @"client_api_cvv_verification_merchant_id",
                                                           BTClientTestConfigurationKeyPublicKey: @"client_api_cvv_verification_public_key",
                                                           BTClientTestConfigurationKeyCustomer: @YES }
-                                             async:asyncClient completion:^(BTClient *cvvClient) {
+                                             async:asyncClient completion:^(BTAPIClient *cvvClient) {
 
                                                  [cvvClient saveCardWithNumber:@"4111111111111111"
                                                                expirationMonth:@"12"
@@ -533,11 +533,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
               it(@"fails to save a card when a postal code response is incorrect", ^{
                   XCTestExpectation *expectation = [self expectationWithDescription:@"Fail to save card"];
-                  [BTClient testClientWithConfiguration:@{
+                  [BTAPIClient testClientWithConfiguration:@{
                                                           BTClientTestConfigurationKeyMerchantIdentifier: @"client_api_postal_code_verification_merchant_id",
                                                           BTClientTestConfigurationKeyPublicKey: @"client_api_postal_code_verification_public_key",
                                                           BTClientTestConfigurationKeyCustomer: @YES }
-                                             async:asyncClient completion:^(BTClient *zipClient) {
+                                             async:asyncClient completion:^(BTAPIClient *zipClient) {
                                                  [zipClient saveCardWithNumber:@"4111111111111111"
                                                                expirationMonth:@"12"
                                                                 expirationYear:@"38"
@@ -790,13 +790,13 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
 
   describe(@"clients with PayPal activated", ^{
-      __block BTClient *testClient;
+      __block BTAPIClient *testClient;
       beforeEach(^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch client"];
-          [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier: @"integration_merchant_id",
+          [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier: @"integration_merchant_id",
                                                    BTClientTestConfigurationKeyPublicKey: @"integration_public_key",
                                                    BTClientTestConfigurationKeyCustomer: @YES }
-                                     async:asyncClient completion:^(BTClient *client) {
+                                     async:asyncClient completion:^(BTAPIClient *client) {
                                          testClient = client;
                                          [expectation fulfill];
                                      }];
@@ -915,12 +915,12 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
   describe(@"post analytics event", ^{
       it(@"sends an analytics event", ^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Post analytics event"];
-          [BTClient testClientWithConfiguration:@{
+          [BTAPIClient testClientWithConfiguration:@{
                                                   BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                   BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                   BTClientTestConfigurationKeyCustomer:@YES,
                                                   BTClientTestConfigurationKeyClientTokenVersion: @2
-                                                  } async:asyncClient completion:^(BTClient *client) {
+                                                  } async:asyncClient completion:^(BTAPIClient *client) {
                                                       testClient = client;
                                                       NSString *event = @"hello world! 🐴";
                                                       [testClient postAnalyticsEvent:event
@@ -934,13 +934,13 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
       it(@"is successful but does not send the event when analytics URL is omitted from the client token", ^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Post analytics event"];
-          [BTClient testClientWithConfiguration:@{
+          [BTAPIClient testClientWithConfiguration:@{
                                                   BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                   BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                   BTClientTestConfigurationKeyCustomer:@YES,
                                                   BTClientTestConfigurationKeyAnalytics: [NSNull null],
                                                   BTClientTestConfigurationKeyClientTokenVersion: @2
-                                                  } async:asyncClient completion:^(BTClient *client) {
+                                                  } async:asyncClient completion:^(BTAPIClient *client) {
                                                       NSString *event = @"hello world! 🐴";
                                                       [client postAnalyticsEvent:event
                                                                          success:^{
@@ -953,7 +953,7 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
   });
 
   describe(@"3D Secure", ^{
-      __block BTClient *testThreeDSecureClient;
+      __block BTAPIClient *testThreeDSecureClient;
 
       beforeEach(^{
           XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch client"];
@@ -961,8 +961,8 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
                                            BTClientTestConfigurationKeyPublicKey: @"integration_public_key",
                                            BTClientTestConfigurationKeyMerchantAccountIdentifier: @"three_d_secure_merchant_account",
                                            BTClientTestConfigurationKeyClientTokenVersion: @2 };
-          [BTClient testClientWithConfiguration:configuration
-                                     async:asyncClient completion:^(BTClient *testClient) {
+          [BTAPIClient testClientWithConfiguration:configuration
+                                     async:asyncClient completion:^(BTAPIClient *testClient) {
                                          testThreeDSecureClient = testClient;
                                          [expectation fulfill];
                                      }];
@@ -1143,7 +1143,7 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
       describe(@"of a non-card nonce", ^{
           __block NSString *nonce;
-          __block BTClient *testPayPalClient;
+          __block BTAPIClient *testPayPalClient;
           
           beforeEach(^{
               XCTestExpectation *clientExpectation = [self expectationWithDescription:@"Fetch client that supports PayPal"];
@@ -1151,8 +1151,8 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
                                                BTClientTestConfigurationKeyPublicKey: @"integration_public_key",
                                                BTClientTestConfigurationKeyMerchantAccountIdentifier: @"sandbox_credit_card",
                                                BTClientTestConfigurationKeyClientTokenVersion: @2 };
-              [BTClient testClientWithConfiguration:configuration
-                                              async:asyncClient completion:^(BTClient *testClient) {
+              [BTAPIClient testClientWithConfiguration:configuration
+                                              async:asyncClient completion:^(BTAPIClient *testClient) {
                                                   testPayPalClient = testClient;
                                                   [clientExpectation fulfill];
                                               }];
@@ -1191,11 +1191,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
           beforeEach(^{
               XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch client and save card"];
-              [BTClient testClientWithConfiguration:@{
+              [BTAPIClient testClientWithConfiguration:@{
                                                       BTClientTestConfigurationKeyMerchantIdentifier: @"altpay_merchant",
                                                       BTClientTestConfigurationKeyPublicKey: @"altpay_merchant_public_key",
                                                       BTClientTestConfigurationKeyClientTokenVersion: @2
-                                                      } async:asyncClient completion:^(BTClient *testClient) {
+                                                      } async:asyncClient completion:^(BTAPIClient *testClient) {
                                                           testThreeDSecureClient = testClient;
                                                           BTClientCardRequest *r = [[BTClientCardRequest alloc] init];
                                                           r.number = @"4000000000000051";
@@ -1232,11 +1232,11 @@ sharedExamplesFor(@"a BTClient", ^(NSDictionary *data) {
 
           beforeEach(^{
               XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch client and save card"];
-              [BTClient testClientWithConfiguration:@{
+              [BTAPIClient testClientWithConfiguration:@{
                                                       BTClientTestConfigurationKeyMerchantIdentifier: @"integration_merchant_id",
                                                       BTClientTestConfigurationKeyPublicKey: @"integration_public_key",
                                                       BTClientTestConfigurationKeyClientTokenVersion: @2
-                                                      } async:asyncClient completion:^(BTClient *testClient) {
+                                                      } async:asyncClient completion:^(BTAPIClient *testClient) {
                                                           testThreeDSecureClient = testClient;
                                                           BTClientCardRequest *r = [[BTClientCardRequest alloc] init];
                                                           r.number = @"4000000000000051";

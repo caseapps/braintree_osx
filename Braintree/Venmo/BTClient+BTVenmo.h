@@ -6,7 +6,7 @@ typedef NS_ENUM(NSUInteger, BTVenmoStatus) {
     BTVenmoStatusProduction
 };
 
-@interface BTClient (BTVenmo)
+@interface BTAPIClient (BTVenmo)
 
 - (BTVenmoStatus)btVenmo_status;
 

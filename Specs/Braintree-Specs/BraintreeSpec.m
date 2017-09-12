@@ -16,7 +16,7 @@ __block Braintree *braintree;
 beforeEach(^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    NSString *clientToken = [BTClient offlineTestClientTokenWithAdditionalParameters:nil];
+    NSString *clientToken = [BTAPIClient offlineTestClientTokenWithAdditionalParameters:nil];
     braintree = [Braintree braintreeWithClientToken:clientToken]; // deprecated
 #pragma clang diagnostic pop
 });
@@ -123,7 +123,7 @@ describe(@"payPalButtonWithDelegate:", ^{
         beforeEach(^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            NSString *clientToken = [BTClient offlineTestClientTokenWithAdditionalParameters:@{BTConfigurationKeyPayPalEnabled: @YES}];
+            NSString *clientToken = [BTAPIClient offlineTestClientTokenWithAdditionalParameters:@{BTConfigurationKeyPayPalEnabled: @YES}];
             braintreeWithPayPalEnabled = [Braintree braintreeWithClientToken:clientToken]; // deprecated
         });
         it(@"should return a payPalButton", ^{

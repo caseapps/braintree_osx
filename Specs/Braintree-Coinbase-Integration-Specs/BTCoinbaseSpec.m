@@ -59,7 +59,7 @@ describe(@"BTAppSwitching", ^{
             id configuration = [OCMockObject mockForClass:[BTConfiguration class]];
             [[[configuration stub] andReturnValue:@(YES)] coinbaseEnabled];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             BTCoinbase *coinbase = [[BTCoinbase alloc] init];
@@ -71,7 +71,7 @@ describe(@"BTAppSwitching", ^{
             id configuration = [OCMockObject mockForClass:[BTConfiguration class]];
             [[[configuration stub] andReturnValue:@(NO)] coinbaseEnabled];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             BTCoinbase *coinbase = [[BTCoinbase alloc] init];
@@ -83,7 +83,7 @@ describe(@"BTAppSwitching", ^{
             id configuration = [OCMockObject mockForClass:[BTConfiguration class]];
             [[[configuration stub] andReturnValue:@(YES)] coinbaseEnabled];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             BTCoinbase *coinbase = [[BTCoinbase alloc] init];
@@ -96,7 +96,7 @@ describe(@"BTAppSwitching", ^{
             id configuration = [OCMockObject mockForClass:[BTConfiguration class]];
             [[[configuration stub] andReturnValue:@(NO)] coinbaseEnabled];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             BTCoinbase *coinbase = [[BTCoinbase alloc] init];
@@ -117,7 +117,7 @@ describe(@"BTAppSwitching", ^{
             // "shared_sandbox" does not support coinbase app switch
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
             
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
             [[client expect] postAnalyticsEvent:@"ios.coinbase.initiate.started"];
             [[client expect] postAnalyticsEvent:@"ios.coinbase.appswitch.started"];
@@ -149,7 +149,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             [[client expect] postAnalyticsEvent:@"ios.coinbase.initiate.started"];
@@ -182,7 +182,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             [[client expect] postAnalyticsEvent:@"ios.coinbase.initiate.started"];
@@ -217,7 +217,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             [[client expect] postAnalyticsEvent:@"ios.coinbase.initiate.started"];
@@ -253,7 +253,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturnValue:@(NO)] coinbaseEnabled];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             [[client expect] postAnalyticsEvent:@"ios.coinbase.initiate.started"];
@@ -290,7 +290,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             [[client expect] postAnalyticsEvent:@"ios.coinbase.initiate.started"];
@@ -321,7 +321,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
 
-            id client = [OCMockObject mockForClass:[BTClient class]];
+            id client = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[client stub] andReturn:configuration] configuration];
 
             [[client expect] postAnalyticsEvent:@"ios.coinbase.initiate.started"];
@@ -426,7 +426,7 @@ describe(@"BTAppSwitching", ^{
                 [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
                 [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
                 
-                mockClient = [OCMockObject mockForClass:[BTClient class]];
+                mockClient = [OCMockObject mockForClass:[BTAPIClient class]];
                 [[[mockClient stub] andReturn:configuration] configuration];
                 mockPaymentMethod = [OCMockObject mockForClass:[BTCoinbasePaymentMethod class]];
 
@@ -541,7 +541,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
             
-            id mockClient = [OCMockObject mockForClass:[BTClient class]];
+            id mockClient = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[mockClient stub] andReturn:configuration] configuration];
             id mockDelegate = [OCMockObject mockForProtocol:@protocol(BTAppSwitchingDelegate)];
 
@@ -562,7 +562,7 @@ describe(@"BTAppSwitching", ^{
             [mockDelegate verifyWithDelay:10];
         });
 
-        it(@"returns the error returned by BTClient when tokenization fails", ^{
+        it(@"returns the error returned by BTAPIClient when tokenization fails", ^{
             id configuration = [OCMockObject mockForClass:[BTConfiguration class]];
             [[[configuration stub] andReturnValue:@(YES)] coinbaseEnabled];
             [[[configuration stub] andReturn:@"test-coinbase-scopes"] coinbaseScope];
@@ -570,7 +570,7 @@ describe(@"BTAppSwitching", ^{
             [[[configuration stub] andReturn:@"coinbase-merchant-account@test.example.com"] coinbaseMerchantAccount];
             [[[configuration stub] andReturn:@"mock"] coinbaseEnvironment];
             
-            id mockClient = [OCMockObject mockForClass:[BTClient class]];
+            id mockClient = [OCMockObject mockForClass:[BTAPIClient class]];
             [[[mockClient stub] andReturn:configuration] configuration];
             NSError *mockError = [OCMockObject mockForClass:[NSError class]];
             [[mockClient expect] postAnalyticsEvent:@"ios.coinbase.unknown.authorized"];
@@ -617,7 +617,7 @@ describe(@"BTAppSwitching", ^{
 
         beforeEach(^{
             configuration = [OCMockObject mockForClass:[BTConfiguration class]];
-            client = [OCMockObject mockForClass:[BTClient class]];
+            client = [OCMockObject mockForClass:[BTAPIClient class]];
             coinbaseOAuth = [OCMockObject mockForClass:[CoinbaseOAuth class]];
         });
 

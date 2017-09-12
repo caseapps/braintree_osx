@@ -18,7 +18,7 @@
 /// Your initialized Braintree client.
 ///
 /// @see Braintree-API-iOS
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 
 /// Initialize a `BTPayPalViewController` with a preset BTClient
 ///
@@ -26,7 +26,7 @@
 /// @see client
 ///
 /// @return A new BTPayPalViewController instance
-- (instancetype)initWithClient:(BTClient *)client;
+- (instancetype)initWithClient:(BTAPIClient *)client;
 
 @end
 

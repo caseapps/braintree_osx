@@ -1,6 +1,6 @@
 #import "BTClient.h"
 
-/// BTClient test configuration keys
+/// BTAPIClient test configuration keys
 /// To be used in testing and customizing Braintree configuration
 extern NSString *BTClientTestConfigurationKeyMerchantIdentifier;
 extern NSString *BTClientTestConfigurationKeyPublicKey;
@@ -21,13 +21,13 @@ typedef void (^BTClientNonceInfoSuccessBlock)(NSDictionary *nonceInfo);
 /// in order to perform integration tests without a dedicated merchant server.
 ///
 /// @warnings These methods will not work outside of Braintree.
-@interface BTClient (Testing)
+@interface BTAPIClient (Testing)
 
 /// Obtain a client for integration testing with the attributes specified by the configuration dictionary.
 ///
 /// This method actually makes a request against the gateway in order our integration test suite to create
 /// a client without a merchant server that generates real client tokens.
-+ (void)testClientWithConfiguration:(NSDictionary *)configurationDictionary async:(BOOL)async completion:(void (^)(BTClient * client))block;
++ (void)testClientWithConfiguration:(NSDictionary *)configurationDictionary async:(BOOL)async completion:(void (^)(BTAPIClient * client))block;
 
 /// Invokes Success block with Nonce Info if a Nonce is found.
 - (void)fetchNonceInfo:(NSString *)nonce success:(BTClientNonceInfoSuccessBlock)successBlock failure:(BTClientFailureBlock)failureBlock;

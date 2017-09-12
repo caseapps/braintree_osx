@@ -31,13 +31,13 @@
 /// @param client a client token that has been initialized with a client token
 ///
 /// @return A new Drop In view controller that is ready to be presented.
-- (instancetype)initWithClient:(BTClient *)client;
+- (instancetype)initWithClient:(BTAPIClient *)client;
 
 /// The Braintree client used internally for communication with the Gateway. This property is exposed
 /// to enable the use of other UIViewController initializers, for example, when using Storyboards.
 ///
 /// @see BTClient
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 
 /// The array of `BTPaymentMethod *` payment methods on file. These payment methods may be in the Vault.
 /// Most payment methods are automatically Vaulted if the client token was generated with a customer ID.

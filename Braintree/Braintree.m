@@ -12,7 +12,7 @@
 #import "BTAppSwitch.h"
 
 @interface Braintree ()
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 
 @property (nonatomic, strong) NSMutableSet *retainedPaymentProviders;
 @end
@@ -26,8 +26,8 @@
 + (void)setupWithClientToken:(NSString *)clientToken
                   completion:(BraintreeCompletionBlock)completionBlock {
     
-    [BTClient setupWithClientToken:clientToken
-                        completion:^(BTClient *client, NSError *error)
+    [BTAPIClient setupWithClientToken:clientToken
+                        completion:^(BTAPIClient *client, NSError *error)
      {
          Braintree *braintree = [[self alloc] initWithClient:client];
          completionBlock(braintree, error);
@@ -43,10 +43,10 @@
 }
 
 - (instancetype)initWithClientToken:(NSString *)clientToken {
-    return [self initWithClient:[[BTClient alloc] initWithClientToken:clientToken]];
+    return [self initWithClient:[[BTAPIClient alloc] initWithClientToken:clientToken]];
 }
 
-- (instancetype)initWithClient:(BTClient *)client {
+- (instancetype)initWithClient:(BTAPIClient *)client {
     self = [self init];
     if (self) {
         self.client = client;
@@ -189,7 +189,7 @@
 #pragma mark Library
 
 + (NSString *)libraryVersion {
-    return [BTClient libraryVersion];
+    return [BTAPIClient libraryVersion];
 }
 
 #pragma mark App Switching

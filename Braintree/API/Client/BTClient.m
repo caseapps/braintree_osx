@@ -18,24 +18,24 @@
 #import "BTClientPaymentMethodValueTransformer.h"
 #import "BTCoinbasePaymentMethod_Internal.h"
 
-@interface BTClient ()
+@interface BTAPIClient ()
 - (void)setMetadata:(BTClientMetadata *)metadata;
 @end
 
-@implementation BTClient
+@implementation BTAPIClient
 
 + (void)setupWithClientToken:(NSString *)clientTokenString completion:(BTClientCompletionBlock)completionBlock {
-    BTClient *client = [[self alloc] initSyncWithClientTokenString:clientTokenString];
+    BTAPIClient *client = [[self alloc] initSyncWithClientTokenString:clientTokenString];
 
     if (client) {
-        [client fetchConfigurationWithCompletion:^(BTClient *client, NSError *error) {
+        [client fetchConfigurationWithCompletion:^(BTAPIClient *client, NSError *error) {
             if (client && !error) {
                 client.hasConfiguration = YES;
             }
             completionBlock(client, error);
         }];
     } else {
-        completionBlock(nil, [NSError errorWithDomain:BTBraintreeAPIErrorDomain code:BTMerchantIntegrationErrorInvalidClientToken userInfo:@{NSLocalizedDescriptionKey: @"BTClient could not initialize because the provided clientToken was invalid"}]);
+        completionBlock(nil, [NSError errorWithDomain:BTBraintreeAPIErrorDomain code:BTMerchantIntegrationErrorInvalidClientToken userInfo:@{NSLocalizedDescriptionKey: @"BTAPIClient could not initialize because the provided clientToken was invalid"}]);
     }
 }
 
@@ -45,7 +45,7 @@
 
 - (instancetype)initSyncWithClientTokenString:(NSString *)clientTokenString {
     if(![clientTokenString isKindOfClass:[NSString class]]){
-        NSString *reason = @"BTClient could not initialize because the provided clientToken was invalid";
+        NSString *reason = @"BTAPIClient could not initialize because the provided clientToken was invalid";
         [[BTLogger sharedLogger] error:reason];
         return nil;
     }
@@ -57,7 +57,7 @@
         // Previously, error was ignored. Now, we at least log it
         if (error) { [[BTLogger sharedLogger] error:[error localizedDescription]]; }
         if (!self.clientToken) {
-            NSString *reason = @"BTClient could not initialize because the provided clientToken was invalid";
+            NSString *reason = @"BTAPIClient could not initialize because the provided clientToken was invalid";
             [[BTLogger sharedLogger] error:reason];
             return nil;
         }
@@ -115,7 +115,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    BTClient *copiedClient = [[BTClient allocWithZone:zone] init];
+    BTAPIClient *copiedClient = [[BTAPIClient allocWithZone:zone] init];
     copiedClient.additionalPayPalScopes = [_additionalPayPalScopes copy];
     copiedClient.clientToken = [_clientToken copy];
     copiedClient.configuration = [_configuration copy];
@@ -313,7 +313,7 @@
 
         case BTClientApplePayStatusProduction:
             if (!payment) {
-                [[BTLogger sharedLogger] warning:@"-[BTClient saveApplePayPayment:success:failure:] received nil payment."];
+                [[BTLogger sharedLogger] warning:@"-[BTAPIClient saveApplePayPayment:success:failure:] received nil payment."];
                 NSError *error = [NSError errorWithDomain:BTBraintreeAPIErrorDomain
                                                      code:BTErrorUnsupported
                                                  userInfo:@{NSLocalizedDescriptionKey: @"A valid PKPayment is required in production"}];
@@ -458,7 +458,7 @@
                                                        @"authorization_fingerprint": self.clientToken.authorizationFingerprint
                                                        }];
 
-        [[BTLogger sharedLogger] debug:@"BTClient postAnalyticsEvent:%@ session:%@", eventKind, self.metadata.sessionId];
+        [[BTLogger sharedLogger] debug:@"BTAPIClient postAnalyticsEvent:%@ session:%@", eventKind, self.metadata.sessionId];
 
         [self.analyticsHttp POST:@"/"
                       parameters:requestParameters
@@ -629,7 +629,7 @@
     return BRAINTREE_VERSION;
 }
 
-- (BOOL)isEqualToClient:(BTClient *)client {
+- (BOOL)isEqualToClient:(BTAPIClient *)client {
     return ((self.clientToken == client.clientToken) || [self.clientToken isEqual:client.clientToken]) &&
            ((self.configuration == client.configuration) || [self.configuration isEqual:client.configuration]);
 }
@@ -639,7 +639,7 @@
         return YES;
     }
 
-    if ([object isKindOfClass:[BTClient class]]) {
+    if ([object isKindOfClass:[BTAPIClient class]]) {
         return [self isEqualToClient:object];
     }
 
@@ -657,7 +657,7 @@
     if (metadataBlock) {
         metadataBlock(mutableMetadata);
     }
-    BTClient *copiedClient = [self copy];
+    BTAPIClient *copiedClient = [self copy];
     copiedClient.metadata = mutableMetadata;
     return copiedClient;
 }

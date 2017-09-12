@@ -24,7 +24,7 @@ describe(@"An instance", ^{
 
     beforeEach(^{
         handler = [[BTVenmoAppSwitchHandler alloc] init];
-        client = [OCMockObject mockForClass:[BTClient class]];
+        client = [OCMockObject mockForClass:[BTAPIClient class]];
         delegate = [OCMockObject mockForProtocol:@protocol(BTAppSwitchingDelegate)];
 
         [[[client stub] andReturn:client] copyWithMetadata:OCMOCK_ANY];
@@ -59,25 +59,25 @@ describe(@"An instance", ^{
             });
 
             it(@"returns YES if [BTVenmoAppSwitchRequestURL isAppSwitchAvailable] and venmo status is production", ^{
-                [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
+                [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
                 [[[venmoAppSwitchRequestURL stub] andReturnValue:@YES] isAppSwitchAvailable];
                 expect([handler appSwitchAvailableForClient:client]).to.beTruthy();
             });
 
             it(@"returns YES if [BTVenmoAppSwitchRequestURL isAppSwitchAvailable] and venmo status is offline", ^{
-                [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusOffline)] btVenmo_status];
+                [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusOffline)] btVenmo_status];
                 [[[venmoAppSwitchRequestURL stub] andReturnValue:@YES] isAppSwitchAvailable];
                 expect([handler appSwitchAvailableForClient:client]).to.beTruthy();
             });
 
             it(@"returns NO if venmo status is off", ^{
-                [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusOff)] btVenmo_status];
+                [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusOff)] btVenmo_status];
                 [[[venmoAppSwitchRequestURL stub] andReturnValue:@YES] isAppSwitchAvailable];
                 expect([handler appSwitchAvailableForClient:client]).to.beFalsy();
             });
 
             it(@"returns NO if [BTVenmoAppSwitchRequestURL isAppSwitchAvailable] returns NO", ^{
-                [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
+                [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
                 [[[venmoAppSwitchRequestURL stub] andReturnValue:@NO] isAppSwitchAvailable];
                 expect([handler appSwitchAvailableForClient:client]).to.beFalsy();
             });
@@ -85,7 +85,7 @@ describe(@"An instance", ^{
 
         context(@"available venmo status and app switch", ^{
             beforeEach(^{
-                [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
+                [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
                 [[[venmoAppSwitchRequestURL stub] andReturnValue:@YES] isAppSwitchAvailable];
             });
 
@@ -145,7 +145,7 @@ describe(@"An instance", ^{
 
         it(@"returns BTAppSwitchErrorDisabled error if client has `btVenmo_status` BTVenmoStatusOff", ^{
 
-            [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusOff)] btVenmo_status];
+            [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusOff)] btVenmo_status];
 
             NSError *error;
             BOOL handled = [handler initiateAppSwitchWithClient:client delegate:delegate error:&error];
@@ -176,7 +176,7 @@ describe(@"An instance", ^{
             });
 
             beforeEach(^{
-                [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
+                [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
             });
 
             context(@"with valid setup", ^{
@@ -220,7 +220,7 @@ describe(@"An instance", ^{
         beforeEach(^{
             delegate = [OCMockObject mockForProtocol:@protocol(BTAppSwitchingDelegate)];
             handler.delegate = delegate;
-            client = [OCMockObject mockForClass:[BTClient class]];
+            client = [OCMockObject mockForClass:[BTAPIClient class]];
             handler.client = client;
 
             appSwitchReturnURL = [OCMockObject mockForClass:[BTVenmoAppSwitchReturnURL class]];
@@ -242,7 +242,7 @@ describe(@"An instance", ^{
 
             beforeEach(^{
                 [[[appSwitchReturnURL stub] andReturnValue:OCMOCK_VALUE(BTVenmoAppSwitchReturnURLStateSucceeded)] state];
-                [(BTClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
+                [(BTAPIClient *)[[client stub] andReturnValue:OCMOCK_VALUE(BTVenmoStatusProduction)] btVenmo_status];
             });
 
             it(@"performs fetchPaymentMethodWithNonce:success:failure:", ^{

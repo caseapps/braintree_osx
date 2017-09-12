@@ -29,7 +29,7 @@
 /// Your initialized Braintree client.
 ///
 /// @see Braintree-API-iOS
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 
 @property (nonatomic, strong) BTUI *theme;
 

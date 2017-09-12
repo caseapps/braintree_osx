@@ -4,7 +4,7 @@
 #import "BTOfflineClientBackend.h"
 #import "BTConfiguration.h"
 
-@implementation BTClient (Offline)
+@implementation BTAPIClient (Offline)
 
 + (NSString *)offlineTestClientTokenWithAdditionalParameters:(NSDictionary *)overrides {
     NSMutableDictionary *clientTokenDataDictionary =

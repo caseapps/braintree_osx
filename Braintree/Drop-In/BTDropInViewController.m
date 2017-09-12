@@ -48,7 +48,7 @@
 
 @implementation BTDropInViewController
 
-- (instancetype)initWithClient:(BTClient *)client {
+- (instancetype)initWithClient:(BTAPIClient *)client {
     self = [self init];
     if (self) {
         self.theme = [BTUI braintreeTheme];
@@ -286,7 +286,7 @@
     } else if (!self.dropInContentView.cardForm.hidden) {
         BTUICardFormView *cardForm = self.dropInContentView.cardForm;
 
-        BTClient *client = [self.client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
+        BTAPIClient *client = [self.client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
             metadata.source = BTClientMetadataSourceForm;
         }];
 

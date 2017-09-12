@@ -5,7 +5,7 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 
-- (void)storeClient:(BTClient *)client;
-- (BTClient *)fetchClient;
+- (void)storeClient:(BTAPIClient *)client;
+- (BTAPIClient *)fetchClient;
 
 @end

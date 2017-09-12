@@ -3,6 +3,6 @@
 
 @interface BTPayPalAppSwitchHandler ()
 
-@property (nonatomic, strong, readwrite) BTClient *client;
+@property (nonatomic, strong, readwrite) BTAPIClient *client;
 
 @end

@@ -12,22 +12,22 @@ SpecBegin(BTPayPal_Integration)
 describe(@"preparePayPalMobile", ^{
     describe(@"online", ^{
         describe(@"with PayPal enabled", ^{
-            __block BTClient *testClient;
+            __block BTAPIClient *testClient;
 
             beforeEach(^{
                 waitUntil(^(DoneCallback done){
-                    [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"altpay_merchant",
+                    [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"altpay_merchant",
                                                              BTClientTestConfigurationKeyPublicKey:@"altpay_merchant_public_key",
                                                              BTClientTestConfigurationKeyCustomer:@YES }
                                                async:YES
-                                               completion:^(BTClient *client) {
+                                               completion:^(BTAPIClient *client) {
                                                    testClient = client;
                                                    done();
                                                }];
                 });
             });
 
-            it(@"configures BTClient for use with PayPal based on the client token configuration", ^{
+            it(@"configures BTAPIClient for use with PayPal based on the client token configuration", ^{
                 OCMockObject *mockPayPalMobile = [OCMockObject mockForClass:[PayPalMobile class]];
 
                 // Assert that Braintree environment is added
@@ -63,17 +63,17 @@ describe(@"preparePayPalMobile", ^{
         });
 
         describe(@"with PayPal disabled", ^{
-            __block BTClient *testClient;
+            __block BTAPIClient *testClient;
 
             beforeEach(^{
                 waitUntil(^(DoneCallback done){
                     NSString *merchantIdWithPayPalDisabled = @"integration2_merchant_id";
                     NSString *merchantKeyWithPayPalDisabled = @"integration2_public_key";
-                    [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier: merchantIdWithPayPalDisabled,
+                    [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier: merchantIdWithPayPalDisabled,
                                                              BTClientTestConfigurationKeyPublicKey:merchantKeyWithPayPalDisabled,
                                                              BTClientTestConfigurationKeyCustomer: @YES }
                                                async:YES
-                                               completion:^(BTClient *client) {
+                                               completion:^(BTAPIClient *client) {
                                                    testClient = client;
                                                    done();
                                                }];
@@ -102,16 +102,16 @@ describe(@"preparePayPalMobile", ^{
     });
 
     describe(@"offline", ^{
-        __block BTClient *client;
+        __block BTAPIClient *client;
 
         beforeEach(^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            client = [[BTClient alloc] initWithClientToken:[BTClient btPayPal_offlineTestClientToken]];
+            client = [[BTAPIClient alloc] initWithClientToken:[BTAPIClient btPayPal_offlineTestClientToken]];
 #pragma clang diagnostic pop
         });
 
-        it(@"defaults to PayPal mock mode in BTClient offline mode", ^{
+        it(@"defaults to PayPal mock mode in BTAPIClient offline mode", ^{
             OCMockObject *mockPayPalMobile = [OCMockObject mockForClass:[PayPalMobile class]];
 
             // Assert that Braintree environment is actually used

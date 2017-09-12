@@ -46,11 +46,11 @@
 
 ///  Initializes a 3D Secure verification manager
 ///
-///  @param client   A Braintree client. You should reuse your BTClient instance as much as possible. If you are using `Braintree`, you can obtain a client via the `-[Braintree client]` instance method.
+///  @param client   A Braintree client. You should reuse your BTAPIClient instance as much as possible. If you are using `Braintree`, you can obtain a client via the `-[Braintree client]` instance method.
 ///  @param delegate A delegate that receives messages about the lifecycle of verifying a payment method for 3D Secure
 ///
 ///  @return An initialized instance of BTThreeDSecure
-- (instancetype)initWithClient:(BTClient *)client delegate:(id<BTPaymentMethodCreationDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithClient:(BTAPIClient *)client delegate:(id<BTPaymentMethodCreationDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 /// The delegate that is notified as the 3D Secure authentication flow progresses and completes
 @property (nonatomic, weak) id<BTPaymentMethodCreationDelegate> delegate;

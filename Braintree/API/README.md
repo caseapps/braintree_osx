@@ -84,20 +84,20 @@ Now that you have a client token, you're ready to start:
 
 ```
 #import <Braintree/Braintree-API.h>
-BTClient *braintree = [[BTClient alloc] initWithClientToken:CLIENT_TOKEN_FROM_SERVER];
+BTAPIClient *braintree = [[BTAPIClient alloc] initWithClientToken:CLIENT_TOKEN_FROM_SERVER];
 ```
 
 #### "Offline Test" Client Token
 
 You may want to try out our library without a server integration. To this end, we provide an offline mode, which emulates the actual API's behavior. Most of the library's semantics are identical in offline mode.
 
-Each time you invoke `[BTClient offlineTestClientToken]`, the offline client's persistent data are reset.
+Each time you invoke `[BTAPIClient offlineTestClientToken]`, the offline client's persistent data are reset.
 
 In order to create an offline client, use this code:
 
 ```
 #import <BTClient+Offline.h>
-BTClient *testClient = [[BTClient alloc] initWithClientToken:[BTClient offlineTestClientToken]];
+BTAPIClient *testClient = [[BTAPIClient alloc] initWithClientToken:[BTAPIClient offlineTestClientToken]];
 ```
 
 Behind the scenes, this client is a totally normal `BTClient`. The client token you obtain is initialized a special local-only Client API URL. We use [`NSURLProtocol`](http://nshipster.com/nsurlprotocol/) to intercept network calls with a particular custom URL scheme.

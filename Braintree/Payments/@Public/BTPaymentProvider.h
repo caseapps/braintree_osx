@@ -82,15 +82,15 @@ typedef NS_ENUM(NSInteger, BTPaymentProviderStatus) {
 
 /// Initializes a payment provider
 ///
-/// @param client The BTClient that is used for communicating with Braintree during payment method creation
+/// @param client The BTAPIClient that is used for communicating with Braintree during payment method creation
 ///
 /// @return An initialized payment provider
-- (instancetype)initWithClient:(BTClient *)client;
+- (instancetype)initWithClient:(BTAPIClient *)client;
 
 - (id)init __attribute__((unavailable("Please use initWithClient:")));
 
-/// BTClient to use during authorization
-@property (nonatomic, strong) BTClient *client;
+/// BTAPIClient to use during authorization
+@property (nonatomic, strong) BTAPIClient *client;
 
 /// Delegate to receive messages during payment authorization process
 @property (nonatomic, weak) id<BTPaymentMethodCreationDelegate> delegate;

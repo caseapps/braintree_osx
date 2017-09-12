@@ -10,7 +10,7 @@ NSString *const BTPayPalScopeAddress = @"address";
 
 NSString *const BTClientPayPalConfigurationError = @"The PayPal SDK could not be initialized. Perhaps client token did not contain a valid PayPal configuration.";
 
-@implementation BTClient (BTPayPal)
+@implementation BTAPIClient (BTPayPal)
 
 + (NSString *)btPayPal_offlineTestClientToken {
     NSDictionary *payPalClientTokenData = @{ BTConfigurationKeyPayPal: @{

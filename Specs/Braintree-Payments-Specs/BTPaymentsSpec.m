@@ -74,7 +74,7 @@ __block id delegate;
 beforeEach(^{
     configuration = [OCMockObject mockForClass:[BTConfiguration class]];
 
-    client = [OCMockObject mockForClass:[BTClient class]];
+    client = [OCMockObject mockForClass:[BTAPIClient class]];
     [[client stub] btPayPal_preparePayPalMobileWithError:(NSError * __autoreleasing *)[OCMArg anyPointer]];
     [[client stub] postAnalyticsEvent:OCMOCK_ANY];
 

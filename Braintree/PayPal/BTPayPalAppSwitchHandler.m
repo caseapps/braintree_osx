@@ -100,7 +100,7 @@
 
 }
 
-- (BOOL)initiateAppSwitchWithClient:(BTClient *)client delegate:(id<BTAppSwitchingDelegate>)theDelegate error:(NSError *__autoreleasing *)error {
+- (BOOL)initiateAppSwitchWithClient:(BTAPIClient *)client delegate:(id<BTAppSwitchingDelegate>)theDelegate error:(NSError *__autoreleasing *)error {
 
     client = [client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
         metadata.source = BTClientMetadataSourcePayPalApp;
@@ -158,11 +158,11 @@
     return YES;
 }
 
-- (BOOL)appSwitchAvailableForClient:(BTClient *)client {
+- (BOOL)appSwitchAvailableForClient:(BTAPIClient *)client {
     return [self appSwitchErrorForClient:client] == nil;
 }
 
-- (NSError *)appSwitchErrorForClient:(BTClient *)client delegate:(id<BTAppSwitchingDelegate>)theDelegate {
+- (NSError *)appSwitchErrorForClient:(BTAPIClient *)client delegate:(id<BTAppSwitchingDelegate>)theDelegate {
     if (theDelegate == nil) {
         return [NSError errorWithDomain:BTAppSwitchErrorDomain
                                    code:BTAppSwitchErrorIntegrationInvalidParameters
@@ -171,7 +171,7 @@
     return [self appSwitchErrorForClient:client];
 }
 
-- (NSError *)appSwitchErrorForClient:(BTClient *)client {
+- (NSError *)appSwitchErrorForClient:(BTAPIClient *)client {
     if (client == nil) {
         return [NSError errorWithDomain:BTAppSwitchErrorDomain
                                    code:BTAppSwitchErrorIntegrationInvalidParameters

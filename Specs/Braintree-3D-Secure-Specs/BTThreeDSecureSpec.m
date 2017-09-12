@@ -5,7 +5,7 @@
 
 SpecBegin(BTThreeDSecure)
 
-__block BTClient *client;
+__block BTAPIClient *client;
 __block id<BTPaymentMethodCreationDelegate> delegate;
 __block NSString *originalNonce_lookupEnrolledAuthenticationNotRequired = @"some-credit-card-nonce-where-3ds-succeeds-without-user-authentication";
 __block NSString *originalNonce_lookupEnrolledAuthenticationRequired = @"some-credit-card-nonce-where-3ds-succeeds-after-user-authentication";
@@ -13,7 +13,7 @@ __block NSString *originalNonce_lookupCardNotEnrolled = @"some-credit-card-nonce
 __block NSString *originalNonce_lookupFails = @"some-credit-card-nonce-where-3ds-fails";
 
 beforeEach(^{
-    client = [OCMockObject mockForClass:[BTClient class]];
+    client = [OCMockObject mockForClass:[BTAPIClient class]];
     delegate = [OCMockObject mockForProtocol:@protocol(BTPaymentMethodCreationDelegate)];
 
     [[(OCMockObject *)client stub] postAnalyticsEvent:OCMOCK_ANY];

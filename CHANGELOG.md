@@ -206,7 +206,7 @@
   * In-App PayPal login now supports 1Password
 
 * API Changes and Deprecations
-  * `-[Braintree tokenizeCard:completion:]` and `-[BTClient saveCardWithRequest:success:failure:]` now take an extensible "request" object as an argument to pass the various raw card details:
+  * `-[Braintree tokenizeCard:completion:]` and `-[BTAPIClient saveCardWithRequest:success:failure:]` now take an extensible "request" object as an argument to pass the various raw card details:
     * The previous signatures that accepted raw details in the arguments are now deprecated.
     * These will be removed in the next major version (4.0.0).
 

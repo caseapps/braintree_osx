@@ -3,16 +3,16 @@
 
 SpecBegin(BTClientCoinbaseIntegrationSpec)
 
-__block BTClient *testClient;
+__block BTAPIClient *testClient;
 
 beforeEach(^{
     XCTestExpectation *fetchTestClientTokenExpectation = [self expectationWithDescription:@"Fetch test client"];
-    [BTClient testClientWithConfiguration:@{
+    [BTAPIClient testClientWithConfiguration:@{
                                             BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                             BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                             BTClientTestConfigurationKeyCustomer:@YES,
                                             BTClientTestConfigurationKeyClientTokenVersion: @2
-                                            } async:YES completion:^(BTClient *client) {
+                                            } async:YES completion:^(BTAPIClient *client) {
                                                 testClient = client;
                                                 [testClient updateCoinbaseMerchantOptions:@{ @"enabled": @YES }
                                                                                   success:^{
@@ -198,12 +198,12 @@ describe(@"saveCoinbaseAccount:storeInVault:success:failure:", ^{
 
         it(@"has no impact when no customer is present", ^{
             XCTestExpectation *fetchTestClientExpectation = [self expectationWithDescription:@"Fetch test client"];
-            [BTClient testClientWithConfiguration:@{
+            [BTAPIClient testClientWithConfiguration:@{
                                                     BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                                     BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                                     BTClientTestConfigurationKeyNoCustomer: @YES,
                                                     BTClientTestConfigurationKeyClientTokenVersion: @2
-                                                    } async:YES completion:^(BTClient *client) {
+                                                    } async:YES completion:^(BTAPIClient *client) {
                                                         testClient = client;
                                                         [testClient updateCoinbaseMerchantOptions:@{ @"enabled": @YES }
                                                                                           success:^{

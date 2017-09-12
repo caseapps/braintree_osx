@@ -144,7 +144,7 @@ NSString *BTPaymentButtonPaymentButtonCellIdentifier = @"BTPaymentButtonPaymentB
 
 #pragma mark PaymentButton State
 
-- (void)setClient:(BTClient *)client {
+- (void)setClient:(BTAPIClient *)client {
     _client = client;
     self.paymentProvider.client = client;
 }
@@ -233,7 +233,7 @@ NSString *BTPaymentButtonPaymentButtonCellIdentifier = @"BTPaymentButtonPaymentB
 }
 
 - (void)collectionView:(__unused UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSAssert(self.client, @"BTPaymentButton tapped without a BTClient instance. Please set a client on this payment button: myPaymentButton.client = (BTClient *)myClient;");
+    NSAssert(self.client, @"BTPaymentButton tapped without a BTAPIClient instance. Please set a client on this payment button: myPaymentButton.client = (BTAPIClient *)myClient;");
 
     BTPaymentProviderType paymentMethod = [self paymentProviderForIndexPath:indexPath];
 

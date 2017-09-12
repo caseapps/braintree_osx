@@ -5,12 +5,12 @@ SpecBegin(BTCoinbaseAcceptance)
 
 beforeAll(^{
     XCTestExpectation *updateCoinbaseMerchantOptionsExpectation = [self expectationWithDescription:@"update merchant options for coinbase"];
-    [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
+    [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                              BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                              BTClientTestConfigurationKeyCustomer:@YES,
                                              BTClientTestConfigurationKeyClientTokenVersion: @2 }
                                     async:YES
-                               completion:^(BTClient *client) {
+                               completion:^(BTAPIClient *client) {
                                    [client updateCoinbaseMerchantOptions:@{ @"enabled": @YES }
                                                                  success:^{
                                                                      [updateCoinbaseMerchantOptionsExpectation fulfill];
@@ -24,12 +24,12 @@ beforeAll(^{
 
 afterAll(^{
     XCTestExpectation *updateCoinbaseMerchantOptionsExpectation = [self expectationWithDescription:@"update merchant options for coinbase"];
-    [BTClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
+    [BTAPIClient testClientWithConfiguration:@{ BTClientTestConfigurationKeyMerchantIdentifier:@"integration_merchant_id",
                                              BTClientTestConfigurationKeyPublicKey:@"integration_public_key",
                                              BTClientTestConfigurationKeyCustomer:@YES,
                                              BTClientTestConfigurationKeyClientTokenVersion: @2 }
                                     async:YES
-                               completion:^(BTClient *client) {
+                               completion:^(BTAPIClient *client) {
                                    [client updateCoinbaseMerchantOptions:@{ @"enabled": @NO }
                                                                  success:^{
                                                                      [updateCoinbaseMerchantOptionsExpectation fulfill];

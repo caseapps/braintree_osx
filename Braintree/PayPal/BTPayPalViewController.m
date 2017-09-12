@@ -13,7 +13,7 @@
 
 @implementation BTPayPalViewController
 
-- (instancetype)initWithClient:(BTClient *)client
+- (instancetype)initWithClient:(BTAPIClient *)client
 {
     self = [self init];
     if (self) {
@@ -87,7 +87,7 @@
             [self.delegate payPalViewControllerWillCreatePayPalPaymentMethod:self];
         }
 
-        BTClient *client = [self.client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
+        BTAPIClient *client = [self.client copyWithMetadata:^(BTClientMutableMetadata *metadata) {
             metadata.source = BTClientMetadataSourcePayPalSDK;
         }];
 

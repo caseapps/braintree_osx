@@ -5,19 +5,19 @@
 SpecBegin(BTClient_Offline)
 
 describe(@"offline clients", ^{
-    __block BTClient *offlineClient;
+    __block BTAPIClient *offlineClient;
     
     beforeEach(^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        NSString *clientToken = [BTClient offlineTestClientTokenWithAdditionalParameters:nil];
-        offlineClient = [[BTClient alloc] initWithClientToken:clientToken];
+        NSString *clientToken = [BTAPIClient offlineTestClientTokenWithAdditionalParameters:nil];
+        offlineClient = [[BTAPIClient alloc] initWithClientToken:clientToken];
 #pragma clang diagnostic pop
     });
     
     describe(@"initialization", ^{
         it(@"constructs a client when given the offline test client token", ^{
-            expect(offlineClient).to.beKindOf([BTClient class]);
+            expect(offlineClient).to.beKindOf([BTAPIClient class]);
         });
     });
     

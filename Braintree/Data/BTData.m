@@ -7,7 +7,7 @@
 static NSString *BTDataSharedMerchantId = @"600000";
 
 @interface BTData () <DeviceCollectorSDKDelegate>
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 @property (nonatomic, copy) NSString *fraudMerchantId;
 @property (nonatomic, strong) DeviceCollectorSDK *kount;
 
@@ -37,7 +37,7 @@ static NSString *BTDataSharedMerchantId = @"600000";
     return [super init];
 }
 
-- (instancetype)initWithClient:(BTClient *)client environment:(BTDataEnvironment)environment {
+- (instancetype)initWithClient:(BTAPIClient *)client environment:(BTDataEnvironment)environment {
     [[BTLogger sharedLogger] log:@"⚠️ The API for -[BTData initWithClient:environment:] is subject to change in the near future."];
 
     if (!client) {

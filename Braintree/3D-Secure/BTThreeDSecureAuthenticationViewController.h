@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, BTThreeDSecureViewControllerCompletionStatus) {
 ///  within a web view for a particular card.
 ///
 ///  You can perform the prerequisite lookup via the
-///  -[BTClient lookupNonceForThreeDSecure:transactionAmount:success:failure:] instance method.
+///  -[BTAPIClient lookupNonceForThreeDSecure:transactionAmount:success:failure:] instance method.
 ///
 ///  An initialized BTThreeDSecureViewController will challenge the user as soon as it is presented
 ///  and cannot be reused.

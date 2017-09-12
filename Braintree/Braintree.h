@@ -160,10 +160,10 @@ typedef void (^BraintreeCompletionBlock)(Braintree *__nullable braintree, NSErro
 
 #pragma mark Advanced Integrations
 
-/// A pre-configured BTClient based on your client token.
+/// A pre-configured BTAPIClient based on your client token.
 ///
 /// You can use this client to initialize various SDK objects, such as BTDropInViewController, BTPaymentButton, BTPaymentProvider, etc.
-@property (nonatomic, readonly) BTClient *client;
+@property (nonatomic, readonly) BTAPIClient *client;
 
 
 #pragma mark - Library Metadata

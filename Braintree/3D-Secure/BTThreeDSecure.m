@@ -5,7 +5,7 @@
 #import "BTThreeDSecureLocalizedString.h"
 
 @interface BTThreeDSecure () <BTThreeDSecureAuthenticationViewControllerDelegate>
-@property (nonatomic, strong) BTClient *client;
+@property (nonatomic, strong) BTAPIClient *client;
 @property (nonatomic, strong) BTCardPaymentMethod *upgradedPaymentMethod;
 @end
 
@@ -16,7 +16,7 @@
     return [self initWithClient:nil delegate:nil];
 }
 
-- (instancetype)initWithClient:(BTClient *)client delegate:(id<BTPaymentMethodCreationDelegate>)delegate {
+- (instancetype)initWithClient:(BTAPIClient *)client delegate:(id<BTPaymentMethodCreationDelegate>)delegate {
     if (client == nil || delegate == nil) {
         return nil;
     }

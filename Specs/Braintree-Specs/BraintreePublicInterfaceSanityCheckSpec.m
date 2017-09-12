@@ -27,7 +27,7 @@ describe(@"the public facing API guaranteed to be stable in this version of the 
     });
 
     it(@"includes BTClient", ^{
-        BTClient *client = [OCMockObject mockForClass:[BTClient class]];
+        BTAPIClient *client = [OCMockObject mockForClass:[BTAPIClient class]];
         expect(client).to.respondTo(@selector(initWithClientToken:));
         expect(client).to.respondTo(@selector(challenges));
         expect(client).to.respondTo(@selector(fetchPaymentMethodWithNonce:success:failure:));
