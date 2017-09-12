@@ -117,7 +117,7 @@ typedef void (^BTClientFailureBlock)(NSError *error);
 /// Save a paypal payment method to Braintree
 ///
 /// @param authCode Authorization Code
-/// @param applicationCorrelationID PayPal App Correlation Id (See `-[BTAPIClient btPayPal_applicationCorrelationId]` and https://github.com/paypal/PayPal-iOS-SDK/blob/master/docs/future_payments_mobile.md#obtain-an-application-correlation-id.)
+/// @param applicationCorrelationId PayPal App Correlation Id (See `-[BTAPIClient btPayPal_applicationCorrelationId]` and https://github.com/paypal/PayPal-iOS-SDK/blob/master/docs/future_payments_mobile.md#obtain-an-application-correlation-id.)
 /// @param successBlock success callback for handling the resulting new PayPal account payment method
 /// @param failureBlock failure callback for handling errors
 - (void)savePaypalPaymentMethodWithAuthCode:(NSString *)authCode
@@ -191,12 +191,12 @@ typedef void (^BTClientFailureBlock)(NSError *error);
 /// You have two options for validation when saving a card to Braintree. You can specify
 /// that only valid options should be saved.
 ///
-/// @param cardNumber card number (PAN)
+/// @param creditCardNumber card number (PAN)
 /// @param expirationMonth card expiration month (e.g. @"01")
 /// @param expirationYear card expiration year (e.g. @"2018")`
 /// @param cvv card's cvv three or four digit verification code (optional, depending on your Gateway settings)
 /// @param postalCode card's postal code for address verification (optional, depending on your Gateway settings)
-/// @param validate whether details should be validated before creating a nonce for them
+/// @param shouldValidate whether details should be validated before creating a nonce for them
 /// @param successBlock success callback for handling the resulting new card
 /// @param failureBlock failure callback for handling errors
 ///
