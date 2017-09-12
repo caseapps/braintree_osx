@@ -41,8 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///  Whether this instance can be used to handle this response URL.
 ///
-///  @param url
-///  @param sourceApplication
+///  @param url some comment
+///  @param sourceApplication some comment
 ///
 ///  @return Whether this instance can handle the given callback URL from
 ///  the given source application.
