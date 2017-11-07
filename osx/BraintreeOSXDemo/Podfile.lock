@@ -1,0 +1,16 @@
+PODS:
+  - Braintree/OSX (4.9.5)
+
+DEPENDENCIES:
+  - Braintree/OSX (from `../../`)
+
+EXTERNAL SOURCES:
+  Braintree:
+    :path: ../../
+
+SPEC CHECKSUMS:
+  Braintree: 4721e1f4e51333e81bf04ac024d405eb2ae65e9a
+
+PODFILE CHECKSUM: 00b93995624fc3935b7c0b35645dba69a0d5180f
+
+COCOAPODS: 1.3.1

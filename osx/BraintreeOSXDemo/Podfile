@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :osx, '10.10'
+
+target 'BraintreeOSXDemo' do
+  platform :osx, '10.10'
+
+  pod 'Braintree/OSX', :path => '../../'
+end
