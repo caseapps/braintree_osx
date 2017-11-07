@@ -126,8 +126,8 @@ Pod::Spec.new do |s|
 
   s.subspec "OSX" do |s|
     s.platform = :osx, "10.10"
-    s.source_files  = "BraintreeCore/**/*.{h,m}"
-    s.public_header_files = "BraintreeCore/Public/*.h"
+    s.source_files  = "BraintreeCore/**/*.{h,m}", "BraintreeCard/**/*.{h,m}"
+    s.public_header_files = "BraintreeCore/Public/*.h", "BraintreeCard/Public/*.h"
     s.frameworks = "AddressBook"
     s.weak_frameworks = "Contacts"
   end
