@@ -1,5 +1,7 @@
 #import "BTAppSwitch.h"
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
+#endif
 
 NSString * const BTAppSwitchWillSwitchNotification = @"com.braintreepayments.BTAppSwitchWillSwitchNotification";
 NSString * const BTAppSwitchDidSwitchNotification = @"com.braintreepayments.BTAppSwitchDidSwitchNotification";
@@ -49,7 +51,7 @@ NSString * const BTAppSwitchNotificationTargetKey = @"BTAppSwitchNotificationTar
 }
 #else
 + (BOOL)handleOpenURL:(NSURL *)url options:(__unused NSDictionary *)options {
-    return [[[self class] sharedInstance] handleOpenURL:url sourceApplication:nil];
+    return [[[self class] sharedInstance] handleOpenURL:url sourceApplication:@""];
 }
 #endif
 

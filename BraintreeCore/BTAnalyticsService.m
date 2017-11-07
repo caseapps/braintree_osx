@@ -4,7 +4,9 @@
 #import "BTClientMetadata.h"
 #import "BTHTTP.h"
 #import "BTLogger_Internal.h"
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
+#endif
 
 #pragma mark - BTAnalyticsEvent
 
@@ -117,7 +119,9 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
         _sessionsQueue = dispatch_queue_create("com.braintreepayments.BTAnalyticsService", DISPATCH_QUEUE_SERIAL);
         _apiClient = apiClient;
         _flushThreshold = 1;
+        #ifndef TARGET_OS_MAC
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResign:) name:UIApplicationWillResignActiveNotification object:nil];
+        #endif
     }
     return self;
 }
@@ -231,6 +235,7 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
 
 #pragma mark - Private methods
 
+#ifndef TARGET_OS_MAC
 - (void)appWillResign:(NSNotification *)notification {
     UIApplication *application = notification.object;
     
@@ -249,6 +254,7 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
         }];
     });
 }
+#endif
 
 #pragma mark - Helpers
 
