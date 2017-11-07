@@ -11,6 +11,7 @@
 		5B873FD91FB1E67800C60B86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B873FD81FB1E67800C60B86 /* ViewController.swift */; };
 		5B873FDB1FB1E67800C60B86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B873FDA1FB1E67800C60B86 /* Assets.xcassets */; };
 		5B873FDE1FB1E67800C60B86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B873FDC1FB1E67800C60B86 /* Main.storyboard */; };
+		5B959B731FB1EBDF0053EF9F /* bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B959B721FB1EBDF0053EF9F /* bridge.m */; };
 		F8F7065CA40E8706AC392B8B /* libPods-BraintreeOSXDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EED280A4EEC52ABD5D184C /* libPods-BraintreeOSXDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +23,8 @@
 		5B873FDD1FB1E67800C60B86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5B873FDF1FB1E67800C60B86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B873FE01FB1E67800C60B86 /* BraintreeOSXDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BraintreeOSXDemo.entitlements; sourceTree = "<group>"; };
+		5B959B711FB1EBDE0053EF9F /* BraintreeOSXDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BraintreeOSXDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		5B959B721FB1EBDF0053EF9F /* bridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bridge.m; sourceTree = "<group>"; };
 		62EED280A4EEC52ABD5D184C /* libPods-BraintreeOSXDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BraintreeOSXDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DF855B2BD6C246ACCAC928A /* Pods-BraintreeOSXDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BraintreeOSXDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BraintreeOSXDemo/Pods-BraintreeOSXDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		B3C994AFF676F707E15E672E /* Pods-BraintreeOSXDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BraintreeOSXDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-BraintreeOSXDemo/Pods-BraintreeOSXDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,6 +69,8 @@
 				5B873FDC1FB1E67800C60B86 /* Main.storyboard */,
 				5B873FDF1FB1E67800C60B86 /* Info.plist */,
 				5B873FE01FB1E67800C60B86 /* BraintreeOSXDemo.entitlements */,
+				5B959B721FB1EBDF0053EF9F /* bridge.m */,
+				5B959B711FB1EBDE0053EF9F /* BraintreeOSXDemo-Bridging-Header.h */,
 			);
 			path = BraintreeOSXDemo;
 			sourceTree = "<group>";
@@ -122,6 +127,7 @@
 				TargetAttributes = {
 					5B873FD21FB1E67800C60B86 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -212,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B959B731FB1EBDF0053EF9F /* bridge.m in Sources */,
 				5B873FD91FB1E67800C60B86 /* ViewController.swift in Sources */,
 				5B873FD71FB1E67800C60B86 /* AppDelegate.swift in Sources */,
 			);
@@ -342,6 +349,7 @@
 			baseConfigurationReference = 8DF855B2BD6C246ACCAC928A /* Pods-BraintreeOSXDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BraintreeOSXDemo/BraintreeOSXDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -350,6 +358,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caseapps.BraintreeOSXDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BraintreeOSXDemo/BraintreeOSXDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -359,6 +369,7 @@
 			baseConfigurationReference = B3C994AFF676F707E15E672E /* Pods-BraintreeOSXDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BraintreeOSXDemo/BraintreeOSXDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -367,6 +378,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caseapps.BraintreeOSXDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BraintreeOSXDemo/BraintreeOSXDemo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
