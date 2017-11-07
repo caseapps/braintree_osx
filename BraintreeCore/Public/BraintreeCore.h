@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for BraintreeCore.
 FOUNDATION_EXPORT double BraintreeCoreVersionNumber;
@@ -22,7 +22,9 @@ FOUNDATION_EXPORT const unsigned char BraintreeCoreVersionString[];
 #import "BTPaymentMethodNonceParser.h"
 #import "BTTokenizationService.h"
 #import "BTPaymentMethodNonce.h"
+#ifndef TARGET_OS_MAC
 #import "BTViewControllerPresentingDelegate.h"
+#endif
 
 #ifndef __BT_AVAILABLE
 #define __BT_AVAILABLE(class) NSClassFromString(class) != nil
