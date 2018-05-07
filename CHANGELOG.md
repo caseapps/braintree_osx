@@ -1,5 +1,45 @@
 # Braintree iOS SDK Release Notes
 
+## 4.15.0 (2018-04-30)
+
+* 3D Secure
+  * Add support for American Express SafeKey params
+
+## 4.14.0 (2018-04-03)
+
+* Ensure animations are consistent for PayPal SFSafariViewController flow (thanks @nudge)
+* Update header documentation
+* Add BTAppSwitchDelegate events `appContextWillSwitch` and `appContextDidReturn`
+  * Addresses the issue that notifications were inconsistent across app switches [#383](https://github.com/braintree/braintree_ios/issues/383)
+
+## 4.13.0 (2018-03-20)
+
+* Update `PayPalDataCollector` to include latest `libPPRiskComponent.a`
+
+## 4.12.0 (2018-03-06)
+
+* Add support for Venmo profiles
+* Fix demo app issue with CocoaPods
+
+## 4.11.0 (2018-02-05)
+
+* Fix code for implicit retain self warning (thanks @keith)
+
+## 4.10.1 (2018-02-01)
+
+* Add BTThreeDSecureInfo to BTCardNonce
+* Use angled brackets for BraintreePayPal header imports (thanks @nudge)
+
+## 4.10.0 (2017-12-08)
+
+* Add iDEAL support
+* Add new 3D Secure integration with browser support
+* Fix issue where ApplePay nonces were not having their default property set (Thanks @rksaraf)
+
+## 4.9.6 (2017-11-13)
+
+* Fix issue where Venmo attempted to vault when using a Tokenization Key
+
 ## 4.9.5 (2017-11-03)
 
 * Fix a timeout issue on configuration fetch

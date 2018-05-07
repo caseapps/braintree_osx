@@ -1,7 +1,12 @@
 #import "BTPayPalDriver_Internal.h"
 
+#if __has_include("PayPalOneTouch.h")
 #import "PPOTRequest.h"
 #import "PPOTCore.h"
+#else
+#import <PayPalOneTouch/PPOTRequest.h>
+#import <PayPalOneTouch/PPOTCore.h>
+#endif
 
 #if __has_include("BraintreeCore.h")
 #import "BTAPIClient_Internal.h"
@@ -10,11 +15,17 @@
 #import "BTLogger_Internal.h"
 #else
 #import <BraintreeCore/BTAPIClient_Internal.h>
-#import <BraintreeCore/BTPayPalAccountNonce_Internal.h>
-#import <BraintreeCore/BTTokenizedPayPalCheckout_Internal.h>
 #import <BraintreeCore/BTPostalAddress.h>
 #import <BraintreeCore/BTLogger_Internal.h>
 #endif
+
+#if __has_include("BTPayPalAccountNonce_Internal.h")
+#import "BTPayPalAccountNonce_Internal.h"
+#else
+#import <BraintreePayPal/BTPayPalAccountNonce_Internal.h>
+#endif
+
+
 #import <SafariServices/SafariServices.h>
 #import "BTConfiguration+PayPal.h"
 
@@ -30,7 +41,7 @@ typedef NS_ENUM(NSUInteger, BTPayPalPaymentType) {
     BTPayPalPaymentTypeBillingAgreement,
 };
 
-@interface BTPayPalDriver () <SFSafariViewControllerDelegate>
+@interface BTPayPalDriver () <SFSafariViewControllerDelegate, UIViewControllerTransitioningDelegate>
 @property (nonatomic, assign) BOOL becameActiveAfterSFAuthenticationSessionModal;
 @end
 
@@ -386,6 +397,7 @@ typedef NS_ENUM(NSUInteger, BTPayPalPaymentType) {
 - (void)setAppSwitchReturnBlock:(void (^)(BTPayPalAccountNonce *tokenizedAccount, NSError *error))completionBlock
                  forPaymentType:(BTPayPalPaymentType)paymentType {
     appSwitchReturnBlock = ^(NSURL *url) {
+        [self informDelegateAppContextDidReturn];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         if (@available(iOS 11.0, *)) {
             if (self.safariAuthenticationSession) {
@@ -488,6 +500,7 @@ typedef NS_ENUM(NSUInteger, BTPayPalPaymentType) {
                             completion:(void (^)(BTPayPalAccountNonce *, NSError *))completionBlock
 {
     if (success) {
+
         // Defensive programming in case PayPal One Touch returns a non-HTTP URL so that SFSafariViewController doesn't crash
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         if (@available(iOS 9.0, *)) {
@@ -526,6 +539,7 @@ typedef NS_ENUM(NSUInteger, BTPayPalPaymentType) {
 }
 
 - (void)performSwitchRequest:(NSURL *)appSwitchURL {
+    [self informDelegateAppContextWillSwitch];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     if (@available(iOS 11.0, *)) {
         NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:appSwitchURL resolvingAgainstBaseURL:NO];
@@ -832,6 +846,24 @@ typedef NS_ENUM(NSUInteger, BTPayPalPaymentType) {
     }
 }
 
+- (void)informDelegateAppContextWillSwitch {
+    NSNotification *notification = [[NSNotification alloc] initWithName:BTAppContextWillSwitchNotification object:self userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+    if ([self.appSwitchDelegate respondsToSelector:@selector(appContextWillSwitch:)]) {
+        [self.appSwitchDelegate appContextWillSwitch:self];
+    }
+}
+
+- (void)informDelegateAppContextDidReturn {
+    NSNotification *notification = [[NSNotification alloc] initWithName:BTAppContextDidReturnNotification object:self userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+    if ([self.appSwitchDelegate respondsToSelector:@selector(appContextDidReturn:)]) {
+        [self.appSwitchDelegate appContextDidReturn:self];
+    }
+}
+
 - (void)informDelegatePresentingViewControllerRequestPresent:(NSURL*) appSwitchURL {
     if (self.viewControllerPresentingDelegate != nil && [self.viewControllerPresentingDelegate respondsToSelector:@selector(paymentDriver:requestsPresentationOfViewController:)]) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
@@ -839,6 +871,7 @@ typedef NS_ENUM(NSUInteger, BTPayPalPaymentType) {
 #endif
         self.safariViewController = [[SFSafariViewController alloc] initWithURL:appSwitchURL];
         self.safariViewController.delegate = self;
+        self.safariViewController.transitioningDelegate = self;
         [self.viewControllerPresentingDelegate paymentDriver:self requestsPresentationOfViewController:self.safariViewController];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         }

@@ -61,7 +61,7 @@ class BTTokenizationService_Tests: XCTestCase {
         let expectation = self.expectation(description: "Callback invoked")
         tokenizationService.tokenizeType("UnknownType", options: nil, with:BTAPIClient(authorization: "development_testing_integration_merchant_id")!) { nonce, error -> Void in
             XCTAssertNil(nonce)
-            guard let error = error as? NSError else {return}
+            guard let error = error as NSError? else {return}
             XCTAssertEqual(error.domain, BTTokenizationServiceErrorDomain)
             XCTAssertEqual(error.code, BTTokenizationServiceError.typeNotRegistered.rawValue)
             expectation.fulfill()
@@ -131,15 +131,14 @@ class BTTokenizationService_Tests: XCTestCase {
 
     func testSingleton_canAuthorizeVenmo() {
         let sharedService = BTTokenizationService.shared()
-        BTConfiguration.setBetaPaymentOption("venmo", isEnabled: true)
         BTOCMockHelper().stubApplicationCanOpenURL()
         BTAppSwitch.setReturnURLScheme("com.braintreepayments.Demo.payments")
         let stubAPIClient = MockAPIClient(authorization: "development_fake_key")!
         stubAPIClient.cannedConfigurationResponseBody = BTJSON(value: [
             "payWithVenmo": [
-                "accessToken": "fake-access-token",
                 "environment": "sandbox",
                 "merchantId": "stubmerchantid",
+                "accessToken": "stubacesstoken"
             ],
         ])
         let mockDelegate = MockAppSwitchDelegate(willPerform: expectation(description: "Will authorize Venmo Account"), didPerform: nil)

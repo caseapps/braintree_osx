@@ -4,10 +4,14 @@ import XCTest
     var willPerformAppSwitchExpectation : XCTestExpectation? = nil
     var didPerformAppSwitchExpectation : XCTestExpectation? = nil
     var willProcessAppSwitchExpectation : XCTestExpectation? = nil
+    var appContextWillSwitchExpectation : XCTestExpectation? = nil
+    var appContextDidReturnExpectation : XCTestExpectation? = nil
     // XCTestExpectations verify that delegates callbacks are made; the below bools verify that they are NOT made
     var willPerformAppSwitchCalled = false
     var didPerformAppSwitchCalled = false
     var willProcessAppSwitchCalled = false
+    var appContextWillSwitchCalled = false
+    var appContextDidReturnCalled = false
     var lastAppSwitcher : AnyObject? = nil
 
     override init() { }
@@ -34,6 +38,18 @@ import XCTest
         willProcessAppSwitchExpectation?.fulfill()
         willProcessAppSwitchCalled = true
     }
+
+    @objc func appContextWillSwitch(_ appSwitcher: Any) {
+        lastAppSwitcher = appSwitcher as AnyObject?
+        appContextWillSwitchExpectation?.fulfill()
+        appContextWillSwitchCalled = true
+    }
+
+    @objc func appContextDidReturn(_ appSwitcher: Any) {
+        lastAppSwitcher = appSwitcher as AnyObject?
+        appContextDidReturnExpectation?.fulfill()
+        appContextDidReturnCalled = true
+    }
 }
 
 @objc class MockViewControllerPresentationDelegate : NSObject, BTViewControllerPresentingDelegate {
@@ -55,6 +71,16 @@ import XCTest
     }
 }
 
+@objc class MockIdealPaymentRequestDelegate : NSObject, BTIdealRequestDelegate {
+    var id: String?
+    var idExpectation : XCTestExpectation?
+
+    func idealPaymentStarted(_ result: BTIdealResult) {
+        self.id = result.idealId
+        idExpectation?.fulfill()
+    }
+}
+
 @objc class MockPayPalApprovalHandlerDelegate : NSObject, BTPayPalApprovalHandler {
     var handleApprovalExpectation : XCTestExpectation? = nil
     var url : NSURL? = nil
@@ -64,7 +90,7 @@ import XCTest
         if (cancel) {
             delegate.onApprovalCancel()
         } else {
-            delegate.onApprovalComplete(url as! URL)
+            delegate.onApprovalComplete(url! as URL)
         }
         handleApprovalExpectation?.fulfill()
     }
