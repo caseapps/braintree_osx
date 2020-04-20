@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import <BraintreeCore/BraintreeCore.h>
+#import <BraintreeCard/BraintreeCard.h>
 
 @interface AppDelegate ()
 

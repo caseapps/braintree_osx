@@ -92,7 +92,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  Braintree: f90ae8b8fc0cbbf74fa4482eed54760855adb3d7
+  Braintree: a29bc22a8b5f81b76eeee5830d91ecc2abbe674f
   BraintreeDropIn: ca284a08c31fb49485883cdcfb87c69422a9b343
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
