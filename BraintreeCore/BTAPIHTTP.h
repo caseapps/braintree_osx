@@ -1,4 +1,6 @@
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
+#endif
 #import "BTHTTP.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -1,4 +1,6 @@
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
+#endif
 
 //! Project version number for BraintreeCore.
 FOUNDATION_EXPORT double BraintreeCoreVersionNumber;

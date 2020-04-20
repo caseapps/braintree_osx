@@ -14,7 +14,12 @@
 }
 
 + (NSString *)keychainKeyForKey:(NSString *)key {
+#ifndef TARGET_OS_MAC
     return [NSString stringWithFormat:@"com.braintreepayments.Braintree-API.%@", key];
+#else
+    NSString* bundleId = [NSBundle mainBundle].bundleIdentifier;
+    return [NSString stringWithFormat:@"%@.Braintree-API.%@", bundleId, key];
+#endif
 }
 
 + (BOOL)setData:(NSData *)data forKey:(NSString *)key {
@@ -33,7 +38,13 @@
     [existsQueryDictionary setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
 
     // Add the keys to the search dict
+#ifndef TARGET_OS_MAC
     [existsQueryDictionary setObject:@"Service" forKey:(__bridge id)kSecAttrService];
+#else
+    NSString* appName = [NSBundle mainBundle].bundleIdentifier;
+    NSString* serviceName = [NSString stringWithFormat:@"%@.Service", appName];
+    [existsQueryDictionary setObject:serviceName forKey:(__bridge id)kSecAttrService];
+#endif
     [existsQueryDictionary setObject:key forKey:(__bridge id)kSecAttrAccount];
 
     OSStatus res = SecItemCopyMatching((__bridge CFDictionaryRef)existsQueryDictionary, NULL);

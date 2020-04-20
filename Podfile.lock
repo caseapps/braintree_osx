@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Braintree/OSX (4.10.0)
   - BraintreeDropIn (99.99.99-github-master):
     - BraintreeDropIn/DropIn (= 99.99.99-github-master)
     - BraintreeDropIn/UIKit (= 99.99.99-github-master)
@@ -31,7 +32,7 @@ PODS:
   - FLEX (2.4.0)
   - InAppSettingsKit (2.8.1)
   - iOS-Slide-Menu (1.5)
-  - NSURL+QueryDictionary (1.2.0)
+  - "NSURL+QueryDictionary (1.2.0)"
   - OCMock (3.4.1)
   - OHHTTPStubs (6.1.0):
     - OHHTTPStubs/Default (= 6.1.0)
@@ -51,41 +52,59 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.0)
+  - Braintree/OSX (from `.`)
   - BraintreeDropIn (from `BraintreeDropIn.podspec`)
   - CardIO
   - Expecta
   - FLEX
   - InAppSettingsKit
   - iOS-Slide-Menu
-  - NSURL+QueryDictionary (~> 1.0)
+  - "NSURL+QueryDictionary (~> 1.0)"
   - OCMock
   - OHHTTPStubs
   - PureLayout
   - Specta
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - CardIO
+    - Expecta
+    - FLEX
+    - InAppSettingsKit
+    - iOS-Slide-Menu
+    - "NSURL+QueryDictionary"
+    - OCMock
+    - OHHTTPStubs
+    - PureLayout
+    - Specta
+
 EXTERNAL SOURCES:
+  Braintree:
+    :path: "."
   BraintreeDropIn:
     :podspec: BraintreeDropIn.podspec
 
 CHECKOUT OPTIONS:
   BraintreeDropIn:
-    :commit: 378af3750e47f8cc93ea67993b0dddfa1c3175bc
+    :commit: 1a663bd3c239e5e6bd65f474dba00a35ee767915
     :git: https://github.com/braintree/braintree-ios-drop-in.git
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Braintree: f90ae8b8fc0cbbf74fa4482eed54760855adb3d7
   BraintreeDropIn: ca284a08c31fb49485883cdcfb87c69422a9b343
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
   InAppSettingsKit: 94d2fba3ccd700fc4e32c6d09fabcc0af2426744
   iOS-Slide-Menu: 40b0cbd8916c42afc755f0869793cd09e7a32102
-  NSURL+QueryDictionary: bae616404e2adf6409d3d5c02a093cbf44c8a236
+  "NSURL+QueryDictionary": bae616404e2adf6409d3d5c02a093cbf44c8a236
   OCMock: 2cd0716969bab32a2283ff3a46fd26a8c8b4c5e3
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   Specta: 3e1bd89c3517421982dc4d1c992503e48bd5fe66
 
-PODFILE CHECKSUM: 5c0f6d7472cce11fd35b3c4a01b851c0799076c5
+PODFILE CHECKSUM: 0ac8cb8f472899bf3b4d22a079e0b882d2665f6b
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.8.4

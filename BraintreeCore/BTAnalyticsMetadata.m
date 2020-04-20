@@ -5,8 +5,9 @@
 @import CoreLocation;
 #import <sys/sysctl.h>
 #import <sys/utsname.h>
-
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
+#endif
 
 #ifdef __IPHONE_8_0
 #define kBTCLAuthorizationStatusAuthorized kCLAuthorizationStatusAuthorizedAlways
@@ -36,18 +37,22 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     if (@available(iOS 8.0, watchOS 2.0, *)) {
 #endif
+#ifndef TARGET_OS_MAC
     if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kBTCLAuthorizationStatusAuthorized) {
         [self setObject:@([m deviceLocationLatitude]) forKey:@"deviceLocationLatitude" inDictionary:data];
         [self setObject:@([m deviceLocationLongitude]) forKey:@"deviceLocationLongitude" inDictionary:data];
     }
+#endif
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     }
 #endif
+#ifndef TARGET_OS_MAC
     [self setObject:[m iosDeviceName] forKey:@"iosDeviceName" inDictionary:data];
     [self setObject:[m iosSystemName] forKey:@"iosSystemName" inDictionary:data];
     [self setObject:[m iosBaseSDK] forKey:@"iosBaseSDK" inDictionary:data];
     [self setObject:[m iosDeploymentTarget] forKey:@"iosDeploymentTarget" inDictionary:data];
     [self setObject:[m iosIdentifierForVendor] forKey:@"iosIdentifierForVendor" inDictionary:data];
+#endif
     [self setObject:@([m iosIsCocoapods]) forKey:@"iosIsCocoapods" inDictionary:data];
     [self setObject:[m deviceAppGeneratedPersistentUuid] forKey:@"deviceAppGeneratedPersistentUuid" inDictionary:data];
     [self setObject:@([m isSimulator]) forKey:@"isSimulator" inDictionary:data];
@@ -71,8 +76,12 @@
 }
 
 - (NSString *)platformVersion {
-
-    return [[UIDevice currentDevice] systemVersion];
+    #ifdef TARGET_OS_MAC
+        NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+        return [NSString stringWithFormat: @"%ld.%ld.%ld", (long)version.majorVersion, version.minorVersion, version.patchVersion];
+    #else
+        return [[UIDevice currentDevice] systemVersion];
+    #endif
 }
 
 - (NSString *)sdkVersion {
@@ -124,7 +133,7 @@
 - (CLLocationDegrees)deviceLocationLongitude {
     return [[[[CLLocationManager alloc] init] location] coordinate].longitude;
 }
-
+#ifndef TARGET_OS_MAC
 - (NSString *)iosIdentifierForVendor {
     return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 }
@@ -149,7 +158,7 @@
 - (NSString *)iosSystemName {
     return [[UIDevice currentDevice] systemName];
 }
-
+#endif
 - (BOOL)iosIsCocoapods {
 #ifdef COCOAPODS
     return YES;
@@ -215,6 +224,7 @@
     if ([self.class isAppExtension]) {
         return @"AppExtension";
     }
+    #ifndef TARGET_OS_MAC
     if ([UIDevice class] == nil) {
         return nil;
     }
@@ -235,9 +245,13 @@
         default:
             return @"Unknown";
     }
+    #else
+        return @"Unknown";
+    #endif
 }
 
 - (BOOL)isVenmoInstalled {
+#ifndef TARGET_OS_MAC
     if ([self.class isAppExtension]) {
         return NO;
     }
@@ -250,6 +264,9 @@
         venmoInstalled = [sharedApplication canOpenURL:venmoURL];
     });
     return venmoInstalled;
+#else
+    return false;
+#endif
 }
     
 + (BOOL)isAppExtension {

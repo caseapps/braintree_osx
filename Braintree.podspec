@@ -23,6 +23,12 @@ Pod::Spec.new do |s|
 
   s.default_subspecs = %w[Core Card PayPal UI]
 
+  s.subspec "OSX" do |s|
+    s.platform = :osx, "10.10"
+    s.source_files  = "BraintreeCore/**/*.{h,m}"
+    s.public_header_files = "BraintreeCore/Public/*.h"
+  end
+
   s.subspec "Core" do |s|
     s.source_files  = "BraintreeCore/**/*.{h,m}"
     s.public_header_files = "BraintreeCore/Public/*.h"

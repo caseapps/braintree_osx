@@ -16,6 +16,11 @@ target 'Demo' do
   pod 'BraintreeDropIn', :podspec => 'BraintreeDropIn.podspec'
 end
 
+target 'Braintree-OSX-Demo' do
+    platform :osx, '10.10'
+    pod 'Braintree/OSX', :path => '.'    
+end
+
 abstract_target 'Tests' do
   pod 'Specta'
   pod 'Expecta'

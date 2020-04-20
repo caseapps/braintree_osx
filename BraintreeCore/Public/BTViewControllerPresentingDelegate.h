@@ -1,12 +1,13 @@
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
-
+#endif
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  @brief Protocol for receiving payment lifecycle messages from a payment driver that requires presentation of a view controller to authorize a payment.
 */
 @protocol BTViewControllerPresentingDelegate <NSObject>
-
+#ifndef TARGET_OS_MAC
 /**
  @brief The payment driver requires presentation of a view controller in order to proceed.
 
@@ -28,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param viewController The view controller to be dismissed
 */
 - (void)paymentDriver:(id)driver requestsDismissalOfViewController:(UIViewController *)viewController;
-
+#endif
 @end
 
 NS_ASSUME_NONNULL_END

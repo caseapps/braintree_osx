@@ -4,7 +4,9 @@
 #import "BTClientMetadata.h"
 #import "BTHTTP.h"
 #import "BTLogger_Internal.h"
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
+#endif
 
 #pragma mark - BTAnalyticsEvent
 
@@ -112,6 +114,7 @@
 NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnalyticsServiceErrorDomain";
 
 - (instancetype)initWithAPIClient:(BTAPIClient *)apiClient {
+#ifndef TARGET_OS_MAC
     if (self = [super init]) {
         _analyticsSessions = [NSMutableDictionary dictionary];
         _sessionsQueue = dispatch_queue_create("com.braintreepayments.BTAnalyticsService", DISPATCH_QUEUE_SERIAL);
@@ -120,10 +123,15 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResign:) name:UIApplicationWillResignActiveNotification object:nil];
     }
     return self;
+#else
+    return nil;
+#endif
 }
 
 - (void)dealloc {
+#ifndef TARGET_OS_MAC
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+#endif
 }
 
 #pragma mark - Public methods
@@ -232,6 +240,7 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
 #pragma mark - Private methods
 
 - (void)appWillResign:(NSNotification *)notification {
+#ifndef TARGET_OS_MAC
     UIApplication *application = notification.object;
     
     __block UIBackgroundTaskIdentifier bgTask;
@@ -248,6 +257,7 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
             bgTask = UIBackgroundTaskInvalid;
         }];
     });
+#endif
 }
 
 #pragma mark - Helpers
@@ -288,3 +298,4 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
 }
 
 @end
+
